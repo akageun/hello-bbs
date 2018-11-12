@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <gnb/>
-    <br>
     <router-view/>
   </div>
 </template>

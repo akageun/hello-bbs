@@ -1,5 +1,6 @@
 package kr.geun.o.app.bbs.controller.api;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,14 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  *
  *
- * @author 김형근
+ * @author akageun
  */
 @RestController
-@RequestMapping("/api")
-public class BbsApiController {
+@RequestMapping("/api/bbs/v1")
+public class ReplyApiController {
 
-	@GetMapping("/v1/bbs")
-	public String getBbsList() {
-		return "테스트";
+	@GetMapping("/reply")
+	public ResponseEntity<String> getReply() {
+		return null;
 	}
 }

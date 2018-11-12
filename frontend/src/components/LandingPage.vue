@@ -3,7 +3,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          1
+          <button class="btn" >
+            asfas
+          </button>
         </div>
         <div class="col">
           2
@@ -23,23 +25,22 @@
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
     data() {
       return {
         msg: ''
       }
     },
+
     created() {
       this.getCall();
     },
     methods: {
       getCall: function () {
-        axios.get('/api/test')
-          .then(result => {
-            this.msg = result.data;
-          })
+        // axios.get('/api/test')
+        //   .then(result => {
+        //     this.msg = result.data;
+        //   })
       }
     }
   }
