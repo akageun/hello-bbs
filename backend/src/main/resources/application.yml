@@ -1,0 +1,6 @@
+server:
+  port: 9987
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 1
