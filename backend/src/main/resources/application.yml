@@ -17,6 +17,7 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     show-sql: true
+    open-in-view: true
 
   h2:
     console:

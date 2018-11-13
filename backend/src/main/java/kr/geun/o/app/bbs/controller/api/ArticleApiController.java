@@ -1,6 +1,5 @@
 package kr.geun.o.app.bbs.controller.api;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  *
  *
- * @author 김형근
+ * @author akageun
  */
 @RestController
 @RequestMapping("/api/bbs/v1")
 public class ArticleApiController {
 
 	@GetMapping("/article")
-	public ResponseEntity<String> getArticle() {
-		return null;
+	public String getArticle() {
+		return "TEST";
 	}
 }
