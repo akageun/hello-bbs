@@ -1,18 +1,14 @@
 <template>
   <div id="app">
-    <gnb/>
     <router-view/>
+
+    <!--{{$route.path}}-->
   </div>
 </template>
 
 <script>
-  import gnb from '@/components/layouts/gnb'
-
   export default {
-    name: 'App',
-    components: {
-      gnb
-    }
+    name: 'App'
   }
 </script>
 

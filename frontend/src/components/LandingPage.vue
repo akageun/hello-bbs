@@ -1,20 +1,23 @@
 <template>
   <div>
+    <gnb/>
+
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <button class="btn" >
-            asfas
-          </button>
+          <router-link to="/bbs/write" class="btn btn-primary btn-sm">
+            글쓰기
+          </router-link>
         </div>
         <div class="col">
-          2
+          <router-link to="/bbs/1" class="btn btn-primary btn-sm">
+            글 보기
+          </router-link>
         </div>
         <div class="col">
-          3
-        </div>
-        <div class="col">
-          4
+          <router-link to="/bbs/write/1" class="btn btn-primary btn-sm">
+            글 수정
+          </router-link>
         </div>
         <div class="col">
           {{msg}}
@@ -25,13 +28,17 @@
 </template>
 
 <script>
+  import gnb from '@/components/layouts/gnb'
+
   export default {
     data() {
       return {
         msg: ''
       }
     },
-
+    components: {
+      gnb
+    },
     created() {
       this.getCall();
     },
