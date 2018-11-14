@@ -1,23 +1,18 @@
 <template>
-  <div class="row">
-    <table class="table">
-      <tr>
-        <th>테스트</th>
-        <th>테스2</th>
-        <th>ㅌㅌㅌ</th>
-      </tr>
-      <tr>
-        <td>asdfa</td>
-        <td>asdfa</td>
-        <td>asdfa</td>
-      </tr>
-    </table>
+  <div>
+    <gnb/>
+    safdasdf
   </div>
 </template>
 
 <script>
+  import gnb from '@/components/layouts/gnb'
+
   export default {
-    name: "bbs_list"
+    name: "bbs_list",
+    components: {
+      gnb
+    },
   }
 </script>
 
