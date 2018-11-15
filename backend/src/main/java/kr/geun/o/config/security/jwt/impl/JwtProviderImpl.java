@@ -3,6 +3,7 @@ package kr.geun.o.config.security.jwt.impl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import kr.geun.o.common.utils.SecUtils;
 import kr.geun.o.config.security.jwt.JwtProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -43,15 +44,10 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 	 */
 	@Override
 	public String generatorToken(Authentication authentication) {
+		String authorities = SecUtils.getAuthorities(authentication.getAuthorities());
+
+		Date expireDate = new Date(System.currentTimeMillis() + TOKEN_EXPIRE_MS);
 		//@formatter:off
-		String authorities = authentication
-			.getAuthorities()
-				.stream()
-					.map(GrantedAuthority::getAuthority)
-					.collect(Collectors.joining(","));
-
-		Date expireDate = new Date(System.currentTimeMillis()+ TOKEN_EXPIRE_MS);
-
 		return Jwts.builder()
 			.setSubject(authentication.getName())
 			.claim(AUTHORITIES_KEY_NM, authorities)
@@ -83,6 +79,11 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 		}
 
 		String userId = claims.getSubject();
+
+		if (claims.getExpiration().before(new Date())) {
+			return null;
+		}
+
 		String authoritiesStr = claims.get(AUTHORITIES_KEY_NM).toString();
 
 		Collection<? extends GrantedAuthority> authorities = Arrays.stream(authoritiesStr.split(",")).map(SimpleGrantedAuthority::new).collect(
@@ -100,17 +101,6 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 			log.error("잘못된 토큰 요청 : {}", e.getMessage());
 			return null;
 		}
-	}
-
-	/**
-	 * 토큰 유효성 체크
-	 *
-	 * @param token
-	 * @return
-	 */
-	@Override
-	public boolean isValidToken(String token) {
-		return false;
 	}
 
 	@Override

@@ -36,8 +36,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 		Authentication authentication = jwtProvider.getAuthentication((HttpServletRequest) servletRequest);
 
 		if (authentication != null) {
-			//TODO : 만료여부 체크
-
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
 
