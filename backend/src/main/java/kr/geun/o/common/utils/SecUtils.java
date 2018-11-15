@@ -3,6 +3,7 @@ package kr.geun.o.common.utils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +14,10 @@ import java.util.stream.Collectors;
  * @author akageun
  */
 public class SecUtils {
+
+	public static List<GrantedAuthority> mapToGrantedAuthorities(String authoritiesStr) {
+		return mapToGrantedAuthorities(Arrays.asList(authoritiesStr.split(",")));
+	}
 
 	/**
 	 *

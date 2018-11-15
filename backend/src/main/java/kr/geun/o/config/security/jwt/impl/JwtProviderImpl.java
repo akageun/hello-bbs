@@ -86,8 +86,7 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 
 		String authoritiesStr = claims.get(AUTHORITIES_KEY_NM).toString();
 
-		Collection<? extends GrantedAuthority> authorities = Arrays.stream(authoritiesStr.split(",")).map(SimpleGrantedAuthority::new).collect(
-			Collectors.toList());
+		Collection<? extends GrantedAuthority> authorities = SecUtils.mapToGrantedAuthorities(authoritiesStr);
 
 		return new UsernamePasswordAuthenticationToken(userId, null, authorities);
 	}
