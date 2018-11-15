@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.permitAll()
 
 			.anyRequest()
-				.authenticated();
+				.authenticated()
+					;
 		//@formatter:on
 
 		//super.configure(http);

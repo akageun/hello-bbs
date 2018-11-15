@@ -1,5 +1,8 @@
 package kr.geun.o.config.security.service;
 
+import kr.geun.o.app.user.model.UserEntity;
+import kr.geun.o.app.user.repository.UserAuthRepository;
+import kr.geun.o.app.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,14 +27,22 @@ import java.util.stream.Collectors;
 public class SimpleUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private UserAuthRepository userAuthRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-		//UserEntity dbUserInfo = new UserEntity(); //repo 연동해야함.
+		UserEntity dbUserInfo = userRepository.getOne(userId);
+		if (dbUserInfo == null) {
+			throw new UsernameNotFoundException("NOT Found User");
+		}
 
-		return new User("akageun", passwordEncoder.encode("test1234"), mapToGrantedAuthorities(Arrays.asList("NORMAL")));
+		List<String> authList = userAuthRepository.findByUserId(userId);
+
+		return new User(dbUserInfo.getUserId(), dbUserInfo.getPassWd(), mapToGrantedAuthorities(authList));
 	}
 
 	private static List<GrantedAuthority> mapToGrantedAuthorities(List<String> authorities) {
