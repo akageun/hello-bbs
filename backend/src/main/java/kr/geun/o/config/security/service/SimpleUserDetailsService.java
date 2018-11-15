@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -41,6 +40,9 @@ public class SimpleUserDetailsService implements UserDetailsService {
 		}
 
 		List<String> authList = userAuthRepository.findByUserId(userId);
+		if (authList.isEmpty()) {
+			throw new UsernameNotFoundException("계정 내 권한이 없습니다.");
+		}
 
 		return new User(dbUserInfo.getUserId(), dbUserInfo.getPassWd(), mapToGrantedAuthorities(authList));
 	}
