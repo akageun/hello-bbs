@@ -39,7 +39,7 @@ public class UserApiServiceImpl implements UserApiService {
 	public UserDetails getUserDetails(String userId, String passWd) {
 
 		UserDetails userInfo = simpleUserDetailsService.loadUserByUsername(userId); //유저정보가 없을경우 UsernameNotFoundException 발생
-		if (passwordEncoder.matches(userId, passWd) == false) { //비밀번호 체크
+		if (passwordEncoder.matches(passWd, userInfo.getPassword()) == false) { //비밀번호 체크
 			throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
 		}
 
@@ -54,6 +54,9 @@ public class UserApiServiceImpl implements UserApiService {
 	 */
 	@Override
 	public String generatorToken(UserDetails details) {
-		return jwtProvider.generatorToken(new UsernamePasswordAuthenticationToken(details, details.getPassword(), details.getAuthorities()));
+
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(details, details.getPassword(), details.getAuthorities());
+
+		return jwtProvider.generatorToken(token);
 	}
 }

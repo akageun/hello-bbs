@@ -68,7 +68,7 @@ public class SimpleUserDetailsServiceTest {
 	}
 
 	@Test
-	public void 유저정보조회관련_정상() {
+	public void 유저정보조회관련_성공() {
 		//GIVEN(Preparation)
 		//@formatter:off
 		final String mockUserId = "akageun";
