@@ -5,6 +5,7 @@ import kr.geun.o.app.user.model.UserAuthEntity;
 import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserAuthRepository;
 import kr.geun.o.app.user.repository.UserRepository;
+import kr.geun.o.app.user.service.UserApiService;
 import kr.geun.o.common.utils.CmnUtils;
 import kr.geun.o.config.security.jwt.JwtProvider;
 import kr.geun.o.config.security.service.SimpleUserDetailsService;
@@ -39,28 +40,22 @@ public class UserApiController {
 	private UserRepository userRepository;
 
 	@Autowired
-	private JwtProvider jwtProvider;
+	private UserApiService userApiService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private SimpleUserDetailsService simpleUserDetailsService;
-
-	@RequestMapping("/user/v1/signin")
-	public ResponseEntity<String> getUserInfo(@Valid UserDTO.Login param, BindingResult result) {
+	@RequestMapping("/user/v1/login")
+	public ResponseEntity<String> userLogin(@Valid UserDTO.Login param, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
-		UserDetails userInfo = simpleUserDetailsService.loadUserByUsername(param.getUserId());
-		if (passwordEncoder.matches(param.getPassWd(), userInfo.getPassword()) == false) { //비밀번호 체크
-			return new ResponseEntity<>("실패", HttpStatus.BAD_REQUEST);
-		}
+		try {
+			UserDetails userDetails = userApiService.getUserDetails(param.getUserId(), param.getPassWd());
 
-		return new ResponseEntity<>(
-			jwtProvider.generatorToken(new UsernamePasswordAuthenticationToken(userInfo, userInfo.getPassword(), userInfo.getAuthorities())),
-			HttpStatus.OK);
+			return ResponseEntity.ok().body(userApiService.generatorToken(userDetails));
+
+		} catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
+			return null;
+		}
 
 	}
 
@@ -70,13 +65,13 @@ public class UserApiController {
 			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
-		UserEntity userEntityParam = UserEntity.builder().userId(param.getUserId()).passWd(passwordEncoder.encode(param.getPassWd())).build();
-
-		userRepository.save(userEntityParam);
-
-		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(param.getUserId()).authorityCd("NORMAL").build();
-
-		userAuthRepository.save(userAuthEntityParam);
+//		UserEntity userEntityParam = UserEntity.builder().userId(param.getUserId()).passWd(passwordEncoder.encode(param.getPassWd())).build();
+		//
+		//		userRepository.save(userEntityParam);
+		//
+		//		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(param.getUserId()).authorityCd("NORMAL").build();
+		//
+		//		userAuthRepository.save(userAuthEntityParam);
 
 		return new ResponseEntity<>("성공", HttpStatus.OK);
 
