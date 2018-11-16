@@ -34,12 +34,6 @@ import javax.validation.Valid;
 public class UserApiController {
 
 	@Autowired
-	private UserAuthRepository userAuthRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
 	private UserApiService userApiService;
 
 	@RequestMapping("/user/v1/login")

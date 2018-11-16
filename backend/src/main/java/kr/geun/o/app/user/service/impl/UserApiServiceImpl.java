@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 유저 API 관련 service
  *
  * @author akageun
  */

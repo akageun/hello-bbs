@@ -3,7 +3,7 @@ package kr.geun.o.app.user.service;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- *
+ * 유저 API 관련 service
  *
  * @author akageun
  */
