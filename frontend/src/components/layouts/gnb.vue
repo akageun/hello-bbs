@@ -26,6 +26,9 @@
           <div class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success  btn-sm my-2 my-sm-0 mr-1">Search</button>
+            <router-link to="/logout" class="btn btn-outline-info btn-sm">
+              LogOut
+            </router-link>
           </div>
         </div>
       </nav>

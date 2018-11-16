@@ -22,7 +22,7 @@
       <br>
       <div class="form-group text-center">
         <a href="#" class="mr-3" @click="openModal('signup_modal_id')">Sign Up</a>
-        <a href="https://github.com/akageun/hello-bbs">GITHUB</a>
+        <a href="https://github.com/akageun/hello-bbs" target="_blank">GITHUB</a>
       </div>
     </div>
 
