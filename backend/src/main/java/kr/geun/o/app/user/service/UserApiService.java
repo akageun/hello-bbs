@@ -25,4 +25,22 @@ public interface UserApiService {
 	 * @return
 	 */
 	String generatorToken(UserDetails details);
+
+	/**
+	 * 유저 생성
+	 * - 전처리
+	 *
+	 * @param userId
+	 * @param passWd
+	 * @param confirmPassWd
+	 */
+	void preCreateUSer(String userId, String passWd, String confirmPassWd);
+
+	/**
+	 * 유저 생성
+	 *
+	 * @param userId
+	 * @param passWd
+	 */
+	void createUser(String userId, String passWd);
 }

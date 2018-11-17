@@ -1,15 +1,23 @@
 package kr.geun.o.app.user.service.impl;
 
+import kr.geun.o.app.user.exception.AlreadyUsernameException;
+import kr.geun.o.app.user.model.UserAuthEntity;
+import kr.geun.o.app.user.model.UserEntity;
+import kr.geun.o.app.user.repository.UserAuthRepository;
+import kr.geun.o.app.user.repository.UserRepository;
 import kr.geun.o.app.user.service.UserApiService;
 import kr.geun.o.config.security.jwt.JwtProvider;
 import kr.geun.o.config.security.service.SimpleUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 /**
  * 유저 API 관련 service
@@ -22,6 +30,12 @@ public class UserApiServiceImpl implements UserApiService {
 
 	@Autowired
 	private SimpleUserDetailsService simpleUserDetailsService;
+
+	@Autowired
+	private UserAuthRepository userAuthRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -58,5 +72,50 @@ public class UserApiServiceImpl implements UserApiService {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(details, details.getPassword(), details.getAuthorities());
 
 		return jwtProvider.generatorToken(token);
+	}
+
+	/**
+	 * 유저 생성
+	 * - 전처리
+	 *
+	 * @param userId
+	 * @param passWd
+	 * @param confirmPassWd
+	 */
+	@Override
+	public void preCreateUSer(String userId, String passWd, String confirmPassWd) {
+
+		UserEntity dbInfo = userRepository.getOne(userId);
+		if (dbInfo != null) {
+			throw new AlreadyUsernameException("이미 등록된 유저 입니다.");
+		}
+
+		//TODO : 비밀번호 정규식 추가
+
+		if (StringUtils.equals(passWd, confirmPassWd) == false) {
+			throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+		}
+	}
+
+	/**
+	 * 유저 생성
+	 *
+	 * @param userId
+	 * @param passWd
+	 */
+	@Transactional
+	@Override
+	public void createUser(String userId, String passWd) {
+
+		String encodePassWd = passwordEncoder.encode(passWd);
+
+		UserEntity userEntityParam = UserEntity.builder().userId(userId).passWd(encodePassWd).build();
+
+		userRepository.save(userEntityParam);
+
+		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd("NORMAL").build();
+
+		userAuthRepository.save(userAuthEntityParam);
+
 	}
 }

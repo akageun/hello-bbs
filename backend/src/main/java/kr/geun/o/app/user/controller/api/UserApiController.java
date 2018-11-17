@@ -1,21 +1,13 @@
 package kr.geun.o.app.user.controller.api;
 
 import kr.geun.o.app.user.dto.UserDTO;
-import kr.geun.o.app.user.model.UserAuthEntity;
-import kr.geun.o.app.user.model.UserEntity;
-import kr.geun.o.app.user.repository.UserAuthRepository;
-import kr.geun.o.app.user.repository.UserRepository;
 import kr.geun.o.app.user.service.UserApiService;
 import kr.geun.o.common.utils.CmnUtils;
-import kr.geun.o.config.security.jwt.JwtProvider;
-import kr.geun.o.config.security.service.SimpleUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +37,9 @@ public class UserApiController {
 		try {
 			UserDetails userDetails = userApiService.getUserDetails(param.getUserId(), param.getPassWd());
 
-			return ResponseEntity.ok().body(userApiService.generatorToken(userDetails));
+			String token = userApiService.generatorToken(userDetails);
+
+			return ResponseEntity.ok().body(token);
 
 		} catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
 			return null;
@@ -59,15 +53,14 @@ public class UserApiController {
 			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
-//		UserEntity userEntityParam = UserEntity.builder().userId(param.getUserId()).passWd(passwordEncoder.encode(param.getPassWd())).build();
-		//
-		//		userRepository.save(userEntityParam);
-		//
-		//		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(param.getUserId()).authorityCd("NORMAL").build();
-		//
-		//		userAuthRepository.save(userAuthEntityParam);
+		try {
+			userApiService.preCreateUSer(param.getUserId(), param.getPassWd(), param.getConfirmPassWd());
+			userApiService.createUser(param.getUserId(), param.getPassWd());
 
-		return new ResponseEntity<>("성공", HttpStatus.OK);
+			return ResponseEntity.ok().body("성공");
 
+		} catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("에러발생");
+		}
 	}
 }
