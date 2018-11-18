@@ -27,11 +27,4 @@ public interface JwtProvider {
 	 */
 	Authentication getAuthentication(HttpServletRequest request);
 
-	/**
-	 * 토큰 유효성 체크
-	 *
-	 * @param token
-	 * @return
-	 */
-	boolean isValidToken(String token);
 }
