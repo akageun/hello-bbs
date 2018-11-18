@@ -28,84 +28,40 @@
               <th>Writer</th>
               <th>Created at</th>
               <th>Created at</th>
-              <th>Created at</th>
               <th>Function</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr v-for="(data, index) in $store.state.bbs.bbsList">
               <td>
-                <router-link to="/bbs/1">1</router-link>
+                <router-link :to="{path: '/bbs/'+ data.articleId}">{{data.articleId}}</router-link>
               </td>
-              <td>메롱</td>
-              <td>akageun</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>2018-11-16 12:00:00</td>
+              <td>{{data.title}}</td>
+              <td>{{data.createdUserId}}</td>
+              <td>{{data.createdAt}}</td>
+              <td>{{data.updatedAt}}</td>
               <td>
-                <router-link to="/bbs/write/1" class="btn btn-primary btn-sm">
-                  글 수정
+                <router-link :to="{path: '/bbs/write/'+ data.articleId}" class="btn btn-warning btn-sm">
+                  수정
                 </router-link>
               </td>
             </tr>
-            <tr>
-              <td>
-                <router-link to="/bbs/2">2</router-link>
-              </td>
-              <td>안녕하세요. 테스트 글 입니다.</td>
-              <td>akageun</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>
-                <router-link to="/bbs/write/1" class="btn btn-primary btn-sm">
-                  글 수정
-                </router-link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <router-link to="/bbs/3">3</router-link>
-              </td>
-              <td>테스트 세번째 글</td>
-              <td>akageun</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>2018-11-16 12:00:00</td>
-              <td>
-                <router-link to="/bbs/write/1" class="btn btn-primary btn-sm">
-                  글 수정
-                </router-link>
-              </td>
-            </tr>
+
             </tbody>
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <!--<bbs_pagination/>-->
     </div>
   </div>
 </template>
 
 <script>
+  import Bbs_pagination from "./bbs_pagination";
+
   export default {
     name: "bbs_list",
+    components: {Bbs_pagination},
     created() {
       this.getArticle()
     },
