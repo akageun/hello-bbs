@@ -85,7 +85,7 @@ public class UserApiServiceImpl implements UserApiService {
 	@Override
 	public void preCreateUSer(String userId, String passWd, String confirmPassWd) {
 
-		UserEntity dbInfo = userRepository.getOne(userId);
+		UserEntity dbInfo = userRepository.findByUserId(userId);
 		if (dbInfo != null) {
 			throw new AlreadyUsernameException("이미 등록된 유저 입니다.");
 		}

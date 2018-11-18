@@ -18,5 +18,5 @@ public interface UserAuthRepository extends JpaRepository<UserAuthEntity, Long> 
 	 * @param userId
 	 * @return
 	 */
-	List<String> findByUserId(String userId);
+	List<UserAuthEntity> findByUserId(String userId);
 }

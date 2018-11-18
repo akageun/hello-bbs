@@ -97,7 +97,7 @@ public class UserApiServiceTest {
 		{
 			UserEntity mockDbInfo = UserEntity.builder().userId(mockUserId).passWd("test").build();
 
-			given(userRepository.getOne(mockUserId)).willReturn(mockDbInfo);
+			given(userRepository.findByUserId(mockUserId)).willReturn(mockDbInfo);
 		}
 
 		WHEN:
@@ -113,7 +113,7 @@ public class UserApiServiceTest {
 
 		GIVEN:
 		{
-			given(userRepository.getOne(mockUserId)).willReturn(null);
+			given(userRepository.findByUserId(mockUserId)).willReturn(null);
 		}
 
 		WHEN:

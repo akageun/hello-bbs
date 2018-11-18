@@ -28,7 +28,7 @@ public class UserApiController {
 	@Autowired
 	private UserApiService userApiService;
 
-	@RequestMapping("/user/v1/login")
+	@PostMapping("/user/v1/login")
 	public ResponseEntity<String> userLogin(@Valid UserDTO.Login param, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
@@ -42,7 +42,8 @@ public class UserApiController {
 			return ResponseEntity.ok().body(token);
 
 		} catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
-			return null;
+			log.error(e.getMessage(), e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("에러발생");
 		}
 
 	}

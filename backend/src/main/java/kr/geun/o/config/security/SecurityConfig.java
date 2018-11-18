@@ -48,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/api/user/**")
 					.permitAll()
-
+				.antMatchers("/api/bbs/**")
+					.hasRole("USER")
+				.antMatchers("/api/admin/**")
+					.hasRole( "ADMIN")
 			.anyRequest()
 				.authenticated()
 					;
@@ -56,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		//super.configure(http);
 	}
+
 
 	@Override
 	protected UserDetailsService userDetailsService() {
