@@ -10,19 +10,19 @@
 
       <div class="form-group">
         <label for="user_id">User Id</label>
-        <input type="email" id="user_id" name="userId" class="form-control" placeholder="User ID를 입력해주세요." required autofocus>
+        <input type="email" id="user_id" name="userId" v-model="userId" class="form-control" placeholder="User ID를 입력해주세요." required autofocus>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="passwd" class="form-control" placeholder="비밀번호를 입력해주세요." required>
+        <input type="password" id="password" name="passwd" v-model="passWd" class="form-control" placeholder="비밀번호를 입력해주세요." required>
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" @click="login">Sign in</button>
 
       <br>
       <div class="form-group text-center">
         <a href="#" class="mr-3" @click="openModal('signup_modal_id')">Sign Up</a>
-        <a href="https://github.com/akageun/hello-bbs" target="_blank">GITHUB</a>
+        <a href="https://github.com/akageun/hello-bbs">GITHUB</a>
       </div>
     </div>
 
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex';
   import signup from '@/components/user/signup';
 
   export default {
@@ -39,12 +38,27 @@
     components: {
       signup
     },
+    data() {
+      return {
+        userId: '',
+        passWd: ''
+      }
+    },
     methods: {
-      ...mapMutations([
-        'openModal', 'closeModal'
-      ]),
-      login: function () {
+      openModal(modalId) {
+        $("#" + modalId).modal({
+          'backdrop': 'static'
+        });
+      },
+      login() {
+        const userId = this.userId;
+        const passWd = this.passWd;
 
+        this.$store.dispatch('LOGIN', {userId, passWd})
+          .then(() => {
+
+          })
+          .catch(({message}) => this.msg = message)
       }
     }
   }

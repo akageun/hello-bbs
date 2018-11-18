@@ -73,6 +73,10 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 		}
 
 		String jwt = StringUtils.replace(fullToken, JWT_PREFIX, "");
+		if (StringUtils.isBlank(jwt)) {
+			return null;
+		}
+
 		Claims claims = getJwtClaims(jwt);
 		if (claims == null) {
 			return null;

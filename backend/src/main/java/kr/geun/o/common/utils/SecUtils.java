@@ -1,7 +1,9 @@
 package kr.geun.o.common.utils;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,6 +16,15 @@ import java.util.stream.Collectors;
  * @author akageun
  */
 public class SecUtils {
+
+	public static String getUserName() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null) {
+			return "";
+		}
+
+		return authentication.getName();
+	}
 
 	/**
 	 * Convert

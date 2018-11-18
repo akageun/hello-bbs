@@ -1,7 +1,11 @@
 package kr.geun.o.app.user.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 유저관련 DTO
@@ -16,7 +20,9 @@ public class UserDTO {
 	@Data
 	@Builder
 	public static class Login {
+		@NotBlank
 		private String userId;
+		@NotBlank
 		private String passWd;
 	}
 
@@ -26,8 +32,11 @@ public class UserDTO {
 	@Data
 	@Builder
 	public static class SignUp {
+		@NotBlank
 		private String userId;
+		@NotBlank
 		private String passWd;
+		@NotBlank
 		private String confirmPassWd;
 	}
 }

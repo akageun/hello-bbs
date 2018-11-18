@@ -1,6 +1,7 @@
 package kr.geun.o.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,7 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		//@formatter:off
 		registry
 			.addMapping("/api/**")
-				.allowedOrigins("http://localhost:9907")
+				.allowedOrigins("*")
 				.allowedMethods("*")
 			.allowCredentials(false)
 			.maxAge(3600);

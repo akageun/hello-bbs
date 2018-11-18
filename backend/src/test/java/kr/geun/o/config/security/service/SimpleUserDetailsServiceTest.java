@@ -1,5 +1,6 @@
 package kr.geun.o.config.security.service;
 
+import kr.geun.o.app.user.model.UserAuthEntity;
 import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserAuthRepository;
 import kr.geun.o.app.user.repository.UserRepository;
@@ -17,9 +18,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 
 @Slf4j
@@ -41,7 +40,7 @@ public class SimpleUserDetailsServiceTest {
 		//GIVEN(Preparation)
 		final String mockUserId = "akageun";
 
-		given(userRepository.getOne(mockUserId)).willReturn(null);
+		given(userRepository.findByUserId(mockUserId)).willReturn(null);
 
 		//WHEN(Execution)
 		simpleUserDetailsService.loadUserByUsername(mockUserId);
@@ -59,7 +58,7 @@ public class SimpleUserDetailsServiceTest {
 			.build();
 
 		//WHEN(Execution)
-		given(userRepository.getOne(mockUserId)).willReturn(mockDbInfo);
+		given(userRepository.findByUserId(mockUserId)).willReturn(mockDbInfo);
 		given(userAuthRepository.findByUserId(mockUserId)).willReturn(Collections.emptyList());
 
 		//@formatter:on
@@ -78,10 +77,10 @@ public class SimpleUserDetailsServiceTest {
 			.passWd("test")
 			.build();
 
-		List<String> mockAuthList = Arrays.asList("NORMAL");
+		List<UserAuthEntity> mockAuthList = Arrays.asList(UserAuthEntity.builder().authorityCd("NORMAL").build());
 
 		//WHEN(Execution)
-		given(userRepository.getOne(mockUserId)).willReturn(mockDbInfo);
+		given(userRepository.findByUserId(mockUserId)).willReturn(mockDbInfo);
 		given(userAuthRepository.findByUserId(mockUserId)).willReturn(mockAuthList);
 
 		//@formatter:on
