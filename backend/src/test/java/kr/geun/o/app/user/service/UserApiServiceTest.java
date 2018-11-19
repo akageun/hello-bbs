@@ -56,7 +56,7 @@ public class UserApiServiceTest {
 		GIVEN:
 		{
 			UserDetails userDetails = new User(mockUserId, mockPassWd,
-				SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleAuthority())));
+				SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleCd())));
 
 			given(simpleUserDetailsService.loadUserByUsername(mockUserId)).willReturn(userDetails);
 		}
@@ -72,7 +72,7 @@ public class UserApiServiceTest {
 		GIVEN:
 		{
 			UserDetails userDetails = new User(mockUserId, passwordEncoder.encode(mockPassWd),
-				SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleAuthority())));
+				SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleCd())));
 
 			given(simpleUserDetailsService.loadUserByUsername(mockUserId)).willReturn(userDetails);
 		}

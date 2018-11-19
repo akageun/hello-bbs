@@ -35,7 +35,7 @@ public class JwtProviderTest {
 	@Before
 	public void init() {
 		UserDetails mockUserDetails = new User(MOCK_USER_ID, MOCK_PASS_WD,
-			SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleAuthority())));
+			SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleCd())));
 
 		usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(mockUserDetails, mockUserDetails.getPassword(),
 			mockUserDetails.getAuthorities());

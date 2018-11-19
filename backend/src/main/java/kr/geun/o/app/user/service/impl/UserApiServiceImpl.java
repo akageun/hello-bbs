@@ -111,7 +111,7 @@ public class UserApiServiceImpl implements UserApiService {
 
 		userRepository.save(userEntityParam);
 
-		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd(AuthorityCd.USER.roleAuthority()).build();
+		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd(AuthorityCd.USER.roleCd()).build();
 
 		userAuthRepository.save(userAuthEntityParam);
 

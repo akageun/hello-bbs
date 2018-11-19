@@ -78,7 +78,7 @@ public class SimpleUserDetailsServiceTest {
 			.passWd("test")
 			.build();
 
-		List<UserAuthEntity> mockAuthList = Arrays.asList(UserAuthEntity.builder().authorityCd(AuthorityCd.USER.roleAuthority()).build());
+		List<UserAuthEntity> mockAuthList = Arrays.asList(UserAuthEntity.builder().authorityCd(AuthorityCd.USER.roleCd()).build());
 
 		//WHEN(Execution)
 		given(userRepository.findByUserId(mockUserId)).willReturn(mockDbInfo);
