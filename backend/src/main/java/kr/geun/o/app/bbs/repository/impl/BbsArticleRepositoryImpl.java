@@ -20,7 +20,6 @@ public class BbsArticleRepositoryImpl implements BbsArticleRepoDsl {
 
 	@Override
 	public void addArticle(BbsArticleEntity param) {
-
 		em.persist(param);
 	}
 
