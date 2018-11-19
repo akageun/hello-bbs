@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- *
+ * 유저
  *
  * @author akageun
  */
@@ -36,11 +36,11 @@ public class UserEntity {
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@CreationTimestamp
-	@Column( nullable = false, updatable = false)
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@UpdateTimestamp
-	@Column( nullable = false)
+	@Column(nullable = false)
 	private LocalDateTime updatedAt;
 }

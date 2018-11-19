@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- *
+ * 유저 - 권한
  *
  * @author akageun
  */
