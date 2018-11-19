@@ -1,8 +1,10 @@
 package kr.geun.o.config.security.jwt.filter;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import kr.geun.o.config.security.jwt.JwtProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -19,6 +21,7 @@ import java.io.IOException;
  *
  * @author akageun
  */
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
@@ -32,13 +35,19 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws
 		IOException,
 		ServletException {
+		try {
+			Authentication authentication = jwtProvider.getAuthentication((HttpServletRequest)servletRequest);
 
-		Authentication authentication = jwtProvider.getAuthentication((HttpServletRequest) servletRequest);
+			if (authentication != null) {
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
 
-		if (authentication != null) {
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+		} catch (ExpiredJwtException e) {
+			//((HttpServletResponse)servletResponse).addHeader("refreshToken", jwtProvider.generatorToken());
+			log.error("e : {}, {}", e.getMessage(), e);
 		}
 
 		filterChain.doFilter(servletRequest, servletResponse);
+
 	}
 }

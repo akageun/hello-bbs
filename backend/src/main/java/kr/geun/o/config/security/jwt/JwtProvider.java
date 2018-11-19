@@ -1,5 +1,6 @@
 package kr.geun.o.config.security.jwt;
 
+import io.jsonwebtoken.ClaimJwtException;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,6 @@ public interface JwtProvider {
 	 * @param request
 	 * @return
 	 */
-	Authentication getAuthentication(HttpServletRequest request);
+	Authentication getAuthentication(HttpServletRequest request) throws ClaimJwtException;
 
 }

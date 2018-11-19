@@ -1,5 +1,6 @@
 package kr.geun.o.config.security.jwt.impl;
 
+import io.jsonwebtoken.ClaimJwtException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,13 +12,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -65,7 +63,7 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 	 * @return
 	 */
 	@Override
-	public Authentication getAuthentication(HttpServletRequest request) {
+	public Authentication getAuthentication(HttpServletRequest request) throws ClaimJwtException {
 		String fullToken = request.getHeader(JWT_HEADER_STRING);
 
 		if (StringUtils.isBlank(fullToken)) {
@@ -95,15 +93,8 @@ public class JwtProviderImpl implements JwtProvider, InitializingBean {
 		return new UsernamePasswordAuthenticationToken(userId, null, authorities);
 	}
 
-	private Claims getJwtClaims(String token) {
-
-		try {
-			return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-
-		} catch (Exception e) {
-			log.error("잘못된 토큰 요청 : {}", e.getMessage());
-			return null;
-		}
+	private Claims getJwtClaims(String token) throws ClaimJwtException {
+		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
 	}
 
 	@Override
