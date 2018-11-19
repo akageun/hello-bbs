@@ -47,15 +47,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf()
 				.disable()
 			.authorizeRequests()
+				.antMatchers("/h2-console/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/user/**")
 					.permitAll()
+
 				.antMatchers("/api/bbs/**")
 					.hasAnyRole(AuthorityCd.USER.name(), AuthorityCd.ADMIN.name())
 				.antMatchers("/api/admin/**")
 					.hasAnyRole(AuthorityCd.ADMIN.name())
 			.anyRequest()
 				.authenticated()
-					;
+			.and()
+				.headers().frameOptions().disable();
 		//@formatter:on
 
 		//super.configure(http);

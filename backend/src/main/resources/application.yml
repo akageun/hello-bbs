@@ -23,7 +23,7 @@ spring:
   h2:
     console:
       enabled: true
-      path: /console
+      path: /h2-console
       settings:
         trace: false
         web-allow-others: false
