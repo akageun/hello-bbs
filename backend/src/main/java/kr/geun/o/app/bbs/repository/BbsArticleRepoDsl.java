@@ -9,6 +9,7 @@ import kr.geun.o.app.bbs.model.BbsArticleEntity;
  */
 public interface BbsArticleRepoDsl {
 
-	void saveArticle(BbsArticleEntity param);
+	void addArticle(BbsArticleEntity param);
 
+	void updateArticle(BbsArticleEntity param);
 }

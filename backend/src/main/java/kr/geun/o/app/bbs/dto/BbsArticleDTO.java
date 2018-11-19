@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 /**
- *
+ * 게시글 관련 DTO
  *
  * @author akageun
  */
@@ -15,21 +15,9 @@ public class BbsArticleDTO {
 
 	@Data
 	@Builder
-	public static class List {
+	public static class Page {
 		@Min(0)
 		private int pageNumber;
-	}
-
-	@Data
-	@Builder
-	public static class Add {
-
-		@NotBlank
-		private String statusCd;
-		@NotBlank
-		private String title;
-		@NotBlank
-		private String content;
 	}
 
 	@Data
@@ -38,5 +26,42 @@ public class BbsArticleDTO {
 
 		@Min(0)
 		public Long articleId;
+	}
+
+	@Data
+	@Builder
+	public static class Add {
+
+		//TODO : status 체크
+		@NotBlank
+		private String statusCd;
+
+		//TODO : 길이체크
+		@NotBlank
+		private String title;
+
+		//TODO : 길이체크
+		@NotBlank
+		private String content;
+	}
+
+	@Data
+	@Builder
+	public static class Modify {
+
+		@Min(0)
+		public Long articleId;
+
+		//TODO : status 체크
+		@NotBlank
+		private String statusCd;
+
+		//TODO : 길이체크
+		@NotBlank
+		private String title;
+
+		//TODO : 길이체크
+		@NotBlank
+		private String content;
 	}
 }

@@ -22,13 +22,13 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user/v1")
 public class UserApiController {
 
 	@Autowired
 	private UserApiService userApiService;
 
-	@PostMapping("/user/v1/login")
+	@PostMapping("/login")
 	public ResponseEntity<String> userLogin(@Valid UserDTO.Login param, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
@@ -48,14 +48,14 @@ public class UserApiController {
 
 	}
 
-	@PostMapping("/user/v1/signup")
+	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@Valid UserDTO.SignUp param, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
 		try {
-			userApiService.preCreateUSer(param.getUserId(), param.getPassWd(), param.getConfirmPassWd());
+			userApiService.preCreateUser(param.getUserId(), param.getPassWd(), param.getConfirmPassWd());
 			userApiService.createUser(param.getUserId(), param.getPassWd());
 
 			return ResponseEntity.ok().body("성공");

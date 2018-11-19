@@ -17,6 +17,11 @@ import java.util.stream.Collectors;
  */
 public class SecUtils {
 
+	/**
+	 * 유저 이름 가져오기
+	 *
+	 * @return
+	 */
 	public static String getUserName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null) {
@@ -28,7 +33,7 @@ public class SecUtils {
 
 	/**
 	 * Convert
-	 *  - String -> List<GrantedAuthority>
+	 *  - String -> Page<GrantedAuthority>
 	 *
 	 * @param authoritiesStr
 	 * @return
@@ -39,7 +44,7 @@ public class SecUtils {
 
 	/**
 	 * Convert
-	 *  - List<String> -> List<GrantedAuthority>
+	 *  - Page<String> -> Page<GrantedAuthority>
 	 *
 	 * @param authorities
 	 * @return

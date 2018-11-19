@@ -3,6 +3,7 @@ package kr.geun.o.app.user.service;
 import kr.geun.o.app.user.exception.AlreadyUsernameException;
 import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserRepository;
+import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.common.utils.SecUtils;
 import kr.geun.o.config.security.service.SimpleUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +55,8 @@ public class UserApiServiceTest {
 	public void 유저정보가져오기_서비스테스트_비밀번호실패() {
 		GIVEN:
 		{
-			UserDetails userDetails = new User(mockUserId, mockPassWd, SecUtils.mapToGrantedAuthorities(Arrays.asList("NORMAL")));
+			UserDetails userDetails = new User(mockUserId, mockPassWd,
+				SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleCd())));
 
 			given(simpleUserDetailsService.loadUserByUsername(mockUserId)).willReturn(userDetails);
 		}
@@ -70,7 +72,7 @@ public class UserApiServiceTest {
 		GIVEN:
 		{
 			UserDetails userDetails = new User(mockUserId, passwordEncoder.encode(mockPassWd),
-				SecUtils.mapToGrantedAuthorities(Arrays.asList("NORMAL")));
+				SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleCd())));
 
 			given(simpleUserDetailsService.loadUserByUsername(mockUserId)).willReturn(userDetails);
 		}
@@ -102,7 +104,7 @@ public class UserApiServiceTest {
 
 		WHEN:
 		{
-			userApiService.preCreateUSer(mockUserId, mockPassWd, "");
+			userApiService.preCreateUser(mockUserId, mockPassWd, "");
 		}
 	}
 
@@ -118,10 +120,9 @@ public class UserApiServiceTest {
 
 		WHEN:
 		{
-			userApiService.preCreateUSer(mockUserId, mockPassWd, confirmPassWd);
+			userApiService.preCreateUser(mockUserId, mockPassWd, confirmPassWd);
 		}
 	}
-
 
 	@Test
 	public void 유저생성_테스트() {

@@ -1,5 +1,6 @@
 package kr.geun.o.config.security.jwt;
 
+import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.common.utils.SecUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -23,61 +24,62 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class JwtProviderTest {
 
-    @Autowired
-    private JwtProvider jwtProvider;
+	@Autowired
+	private JwtProvider jwtProvider;
 
-    private UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken;
+	private UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken;
 
-    private static final String MOCK_USER_ID = "akageun";
-    private static final String MOCK_PASS_WD = "test1234";
+	private static final String MOCK_USER_ID = "akageun";
+	private static final String MOCK_PASS_WD = "test1234";
 
-    @Before
-    public void init() {
-        UserDetails mockUserDetails = new User(MOCK_USER_ID, MOCK_PASS_WD, SecUtils.mapToGrantedAuthorities(Arrays.asList("NORMAL")));
+	@Before
+	public void init() {
+		UserDetails mockUserDetails = new User(MOCK_USER_ID, MOCK_PASS_WD,
+			SecUtils.mapToGrantedAuthorities(Arrays.asList(AuthorityCd.USER.roleCd())));
 
-        usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(mockUserDetails, mockUserDetails.getPassword(),
-            mockUserDetails.getAuthorities());
-    }
+		usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(mockUserDetails, mockUserDetails.getPassword(),
+			mockUserDetails.getAuthorities());
+	}
 
-    @Test
-    public void 토큰_생성하기_성공() {
-        String token = jwtProvider.generatorToken(usernamePasswordAuthenticationToken);
-        assertNotNull(token);
-    }
+	@Test
+	public void 토큰_생성하기_성공() {
+		String token = jwtProvider.generatorToken(usernamePasswordAuthenticationToken);
+		assertNotNull(token);
+	}
 
-    @Test
-    public void 토큰꺼내서_파싱하기_성공() {
-        String mockToken = jwtProvider.generatorToken(usernamePasswordAuthenticationToken);
+	@Test
+	public void 토큰꺼내서_파싱하기_성공() {
+		String mockToken = jwtProvider.generatorToken(usernamePasswordAuthenticationToken);
 
-        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
-        mockRequest.addHeader("Authorization", mockToken);
+		MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+		mockRequest.addHeader("Authorization", mockToken);
 
-        Authentication authentication = jwtProvider.getAuthentication(mockRequest);
+		Authentication authentication = jwtProvider.getAuthentication(mockRequest);
 
-        assertNotNull(authentication);
-        assertEquals(MOCK_USER_ID, authentication.getName());
-        assertNull(authentication.getCredentials());
+		assertNotNull(authentication);
+		assertEquals(MOCK_USER_ID, authentication.getName());
+		assertNull(authentication.getCredentials());
 
-    }
+	}
 
-    @Test
-    public void 토큰꺼내서_널테스트() {
-        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+	@Test
+	public void 토큰꺼내서_널테스트() {
+		MockHttpServletRequest mockRequest = new MockHttpServletRequest();
 
-        Authentication authentication = jwtProvider.getAuthentication(mockRequest);
+		Authentication authentication = jwtProvider.getAuthentication(mockRequest);
 
-        assertNull(authentication);
+		assertNull(authentication);
 
-    }
+	}
 
-    @Test
-    public void 토큰꺼내서_파싱에러_테스트() {
-        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
-        mockRequest.addHeader("Authorization", "test.token.test");
+	@Test
+	public void 토큰꺼내서_파싱에러_테스트() {
+		MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+		mockRequest.addHeader("Authorization", "test.token.test");
 
-        Authentication authentication = jwtProvider.getAuthentication(mockRequest);
+		Authentication authentication = jwtProvider.getAuthentication(mockRequest);
 
-        assertNull(authentication);
+		assertNull(authentication);
 
-    }
+	}
 }

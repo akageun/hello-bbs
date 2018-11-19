@@ -1,5 +1,6 @@
 package kr.geun.o.config.security;
 
+import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.config.security.jwt.JwtProvider;
 import kr.geun.o.config.security.jwt.filter.JwtAuthenticationFilter;
 import kr.geun.o.config.security.jwt.impl.JwtProviderImpl;
@@ -49,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/api/user/**")
 					.permitAll()
 				.antMatchers("/api/bbs/**")
-					.hasRole("USER")
+					.hasAnyRole(AuthorityCd.USER.name(), AuthorityCd.ADMIN.name())
 				.antMatchers("/api/admin/**")
-					.hasRole( "ADMIN")
+					.hasAnyRole(AuthorityCd.ADMIN.name())
 			.anyRequest()
 				.authenticated()
 					;
@@ -59,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		//super.configure(http);
 	}
-
 
 	@Override
 	protected UserDetailsService userDetailsService() {

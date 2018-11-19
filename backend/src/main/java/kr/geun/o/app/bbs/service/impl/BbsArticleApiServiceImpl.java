@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 /**
- *
+ * 게시글 관련 API 서비스
  *
  * @author akageun
  */
@@ -21,28 +21,84 @@ import javax.transaction.Transactional;
 @Service
 public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 
-    @Autowired
-    private BbsArticleRepository bbsArticleRepository;
+	@Autowired
+	private BbsArticleRepository bbsArticleRepository;
 
-    @Override
-    public Page<BbsArticleEntity> page(Pageable pageable) {
-        return bbsArticleRepository.findAll(pageable);
-    }
+	/**
+	 * 리스트 페이지 정보
+	 *
+	 * @param pageable
+	 * @return
+	 */
+	@Override
+	public Page<BbsArticleEntity> page(Pageable pageable) {
+		return bbsArticleRepository.findAll(pageable);
+	}
 
-    @Transactional
-    @Override
-    public void addArticle(String title, String content, String status) {
+	/**
+	 * 단건조회
+	 *
+	 * @param articleId
+	 * @return
+	 */
+	@Override
+	public BbsArticleEntity get(Long articleId) {
+		return bbsArticleRepository.findByArticleId(articleId);
+	}
 
-        String userId = SecUtils.getUserName();
+	/**
+	 * 글쓰기
+	 *
+	 * @param title
+	 * @param content
+	 * @param statusCd
+	 */
+	@Transactional
+	@Override
+	public void addArticle(String title, String content, String statusCd) {
 
-        BbsArticleEntity dbParam = BbsArticleEntity.builder().title(title).content(content).statusCd(status).createdUserId(userId).updatedUserId(
-            userId).build();
+		String userId = SecUtils.getUserName();
 
-        bbsArticleRepository.saveArticle(dbParam);
-    }
+		//@formatter:off
+		BbsArticleEntity dbParam = BbsArticleEntity
+			.builder()
+				.title(title)
+				.content(content)
+				.statusCd(statusCd)
+				.createdUserId(userId)
+				.updatedUserId(userId)
+			.build();
+		//@formatter:on
 
-    @Override
-    public BbsArticleEntity get(Long articleId) {
-        return bbsArticleRepository.findByArticleId(articleId);
-    }
+		bbsArticleRepository.addArticle(dbParam);
+	}
+
+	/**
+	 * 글 수정
+	 *
+	 * @param articleId
+	 * @param title
+	 * @param content
+	 * @param statusCd
+	 */
+	@Transactional
+	@Override
+	public void modifyArticle(Long articleId, String title, String content, String statusCd) {
+		String userId = SecUtils.getUserName();
+
+		//@formatter:off
+		BbsArticleEntity dbParam = BbsArticleEntity
+			.builder()
+				.articleId(articleId)
+				.title(title)
+				.content(content)
+				.statusCd(statusCd)
+				.createdUserId(userId)
+				.updatedUserId(userId)
+			.build();
+		//@formatter:on
+
+		bbsArticleRepository.updateArticle(dbParam);
+	}
+
 }

@@ -34,7 +34,7 @@ public interface UserApiService {
 	 * @param passWd
 	 * @param confirmPassWd
 	 */
-	void preCreateUSer(String userId, String passWd, String confirmPassWd);
+	void preCreateUser(String userId, String passWd, String confirmPassWd);
 
 	/**
 	 * 유저 생성
