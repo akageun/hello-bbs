@@ -44,6 +44,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
 		} catch (ExpiredJwtException e) {
 			//((HttpServletResponse)servletResponse).addHeader("refreshToken", jwtProvider.generatorToken());
+			SecurityContextHolder.clearContext();
 			log.error("e : {}, {}", e.getMessage(), e);
 		}
 

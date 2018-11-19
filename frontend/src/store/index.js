@@ -34,7 +34,9 @@ export default new Vuex.Store({
     bbs: {
       bbsList: [],
       pagination: {}
-    }
+    },
+    pageIndex: 0,
+    pageRange: []
   },
   getters: {
     isAuthenticated(state) {
@@ -57,6 +59,12 @@ export default new Vuex.Store({
       state.bbs.bbsList = data.data.resultList;
       state.bbs.pagination = data.data.pagination;
 
+      this.state.pageRange = [];
+
+      for (let i = data.data.pagination.firstBlockPageNo; i <= data.data.pagination.lastBlockPageNo; i++) {
+        this.state.pageRange.push(i);
+      }
+
     }
   },
   actions: {
@@ -67,8 +75,6 @@ export default new Vuex.Store({
 
       return axios.post('/api/user/v1/login', form)
         .then(({data}) => {
-          console.log('success : ', data);
-
           commit('LOGIN', {data})
           router.push('/')
         }).catch(({data}) => {
@@ -91,8 +97,17 @@ export default new Vuex.Store({
     },
 
     GET_BBS_LIST({commit}, {}) {
+      console.log(this.state.pageIndex);
 
-      return axios.get('/api/bbs/v1/article', auth())
+      return axios.get('/api/bbs/v1/article', {
+
+        params: {
+          'pageNumber': this.state.pageIndex
+        },
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
         .then(({data}) => {
           commit('GET_BBS_LIST', {data});
 

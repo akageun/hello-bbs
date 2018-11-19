@@ -51,7 +51,7 @@
           </table>
         </div>
       </div>
-      <!--<bbs_pagination/>-->
+      <bbs_pagination/>
     </div>
   </div>
 </template>
@@ -71,7 +71,9 @@
           .then((data) => {
             console.log(data);
           })
-          .catch(({message}) => this.msg = message)
+          .catch(({message}) => {
+            console.log("err : ", message);
+          })
       }
     }
   }
