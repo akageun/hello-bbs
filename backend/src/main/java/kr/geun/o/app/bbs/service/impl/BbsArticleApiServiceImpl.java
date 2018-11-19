@@ -70,16 +70,18 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 			.build();
 		//@formatter:on
 
-		bbsArticleRepository.saveArticle(dbParam);
+		bbsArticleRepository.addArticle(dbParam);
 	}
 
 	/**
 	 * 글 수정
-	 *  @param articleId
+	 *
+	 * @param articleId
 	 * @param title
 	 * @param content
 	 * @param statusCd
 	 */
+	@Transactional
 	@Override
 	public void modifyArticle(Long articleId, String title, String content, String statusCd) {
 		String userId = SecUtils.getUserName();
@@ -96,7 +98,7 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 			.build();
 		//@formatter:on
 
-		bbsArticleRepository.saveArticle(dbParam);
+		bbsArticleRepository.updateArticle(dbParam);
 	}
 
 }

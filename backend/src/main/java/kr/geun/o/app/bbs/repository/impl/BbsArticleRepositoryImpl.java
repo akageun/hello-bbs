@@ -15,12 +15,17 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class BbsArticleRepositoryImpl implements BbsArticleRepoDsl {
 
-    @PersistenceContext
-    private EntityManager em;
+	@PersistenceContext
+	private EntityManager em;
 
-    @Override
-    public void saveArticle(BbsArticleEntity param) {
+	@Override
+	public void addArticle(BbsArticleEntity param) {
 
-        em.persist(param);
-    }
+		em.persist(param);
+	}
+
+	@Override
+	public void updateArticle(BbsArticleEntity param) {
+		em.merge(param);
+	}
 }
