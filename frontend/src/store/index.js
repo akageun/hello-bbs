@@ -30,7 +30,11 @@ function auth() {
 
 export default new Vuex.Store({
   state: {
-    accessToken: null
+    accessToken: null,
+    bbs: {
+      bbsList: [],
+      pagination: {}
+    }
   },
   getters: {
     isAuthenticated(state) {
@@ -48,6 +52,11 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.accessToken = null
       localStorage.removeItem('token')
+    },
+    GET_BBS_LIST(state, {data}) {
+      state.bbs.bbsList = data.data.resultList;
+      state.bbs.pagination = data.data.pagination;
+
     }
   },
   actions: {
@@ -85,7 +94,8 @@ export default new Vuex.Store({
 
       return axios.get('/api/bbs/v1/article', auth())
         .then(({data}) => {
-          console.log('success : ', data);
+          commit('GET_BBS_LIST', {data});
+
           return data;
         }).catch(({data}) => {
           console.log("에러 ", data);
