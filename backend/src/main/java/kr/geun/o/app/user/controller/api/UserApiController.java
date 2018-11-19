@@ -55,7 +55,7 @@ public class UserApiController {
 		}
 
 		try {
-			userApiService.preCreateUSer(param.getUserId(), param.getPassWd(), param.getConfirmPassWd());
+			userApiService.preCreateUser(param.getUserId(), param.getPassWd(), param.getConfirmPassWd());
 			userApiService.createUser(param.getUserId(), param.getPassWd());
 
 			return ResponseEntity.ok().body("성공");

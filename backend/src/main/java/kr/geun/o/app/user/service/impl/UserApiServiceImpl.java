@@ -80,7 +80,7 @@ public class UserApiServiceImpl implements UserApiService {
 	 * @param confirmPassWd
 	 */
 	@Override
-	public void preCreateUSer(String userId, String passWd, String confirmPassWd) {
+	public void preCreateUser(String userId, String passWd, String confirmPassWd) {
 
 		UserEntity dbInfo = userRepository.findByUserId(userId);
 		if (dbInfo != null) {
