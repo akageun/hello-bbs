@@ -9,7 +9,7 @@ public enum AuthorityCd {
 	ADMIN, USER;
 
 	/**
-	 *
+	 * 롤코드
 	 *
 	 * @return
 	 */
