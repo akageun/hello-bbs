@@ -3,7 +3,7 @@ package kr.geun.o.app.user.exception;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- *
+ * 이미 존재하는 아이디값에 대한 Exception
  *
  * @author akageun
  */

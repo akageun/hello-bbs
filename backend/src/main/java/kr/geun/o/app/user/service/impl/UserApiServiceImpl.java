@@ -68,10 +68,7 @@ public class UserApiServiceImpl implements UserApiService {
 	 */
 	@Override
 	public String generatorToken(UserDetails details) {
-
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(details, details.getPassword(), details.getAuthorities());
-
-		return jwtProvider.generatorToken(token);
+		return jwtProvider.generatorToken(new UsernamePasswordAuthenticationToken(details, details.getPassword(), details.getAuthorities()));
 	}
 
 	/**
@@ -90,7 +87,7 @@ public class UserApiServiceImpl implements UserApiService {
 			throw new AlreadyUsernameException("이미 등록된 유저 입니다.");
 		}
 
-		//TODO : 비밀번호 정규식 추가
+		//TODO : 비밀번호 정규식 추가, 어노테이션으로?
 
 		if (StringUtils.equals(passWd, confirmPassWd) == false) {
 			throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
