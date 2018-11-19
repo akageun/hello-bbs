@@ -4,6 +4,7 @@ import kr.geun.o.app.user.model.UserAuthEntity;
 import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserAuthRepository;
 import kr.geun.o.app.user.repository.UserRepository;
+import kr.geun.o.common.constants.AuthorityCd;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,7 +78,7 @@ public class SimpleUserDetailsServiceTest {
 			.passWd("test")
 			.build();
 
-		List<UserAuthEntity> mockAuthList = Arrays.asList(UserAuthEntity.builder().authorityCd("NORMAL").build());
+		List<UserAuthEntity> mockAuthList = Arrays.asList(UserAuthEntity.builder().authorityCd(AuthorityCd.USER.roleAuthority()).build());
 
 		//WHEN(Execution)
 		given(userRepository.findByUserId(mockUserId)).willReturn(mockDbInfo);

@@ -6,6 +6,7 @@ import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserAuthRepository;
 import kr.geun.o.app.user.repository.UserRepository;
 import kr.geun.o.app.user.service.UserApiService;
+import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.config.security.jwt.JwtProvider;
 import kr.geun.o.config.security.service.SimpleUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -110,7 +111,7 @@ public class UserApiServiceImpl implements UserApiService {
 
 		userRepository.save(userEntityParam);
 
-		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd("NORMAL").build();
+		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd(AuthorityCd.USER.roleAuthority()).build();
 
 		userAuthRepository.save(userAuthEntityParam);
 
