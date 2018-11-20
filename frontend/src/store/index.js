@@ -5,6 +5,8 @@ import router from '../router'
 
 Vue.use(Vuex)
 
+const jwtTokenName = "tk";
+
 const enhanceAccessToeken = () => {
   const {accessToken} = localStorage
   if (!accessToken) return
@@ -15,7 +17,7 @@ const enhanceAccessToeken = () => {
 
 function auth() {
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(jwtTokenName);
   if (token === undefined) {
     return '';
   }
@@ -40,7 +42,7 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated(state) {
-      state.accessToken = state.accessToken || localStorage.getItem('token');
+      state.accessToken = state.accessToken || localStorage.getItem(jwtTokenName);
       return state.accessToken
     }
   },
@@ -49,19 +51,19 @@ export default new Vuex.Store({
       console.log('accessToken ', data)
 
       state.accessToken = data
-      localStorage.setItem('token', data)
+      localStorage.setItem(jwtTokenName, data)
     },
     LOGOUT(state) {
       state.accessToken = null
-      localStorage.removeItem('token')
+      localStorage.removeItem(jwtTokenName)
     },
-    GET_BBS_LIST(state, {data}) {
-      state.bbs.bbsList = data.data.resultList;
-      state.bbs.pagination = data.data.pagination;
+    GET_BBS_LIST(state, {pagination, resultList}) {
+      state.bbs.bbsList = resultList;
+      state.bbs.pagination = pagination;
 
       this.state.pageRange = [];
 
-      for (let i = data.data.pagination.firstBlockPageNo; i <= data.data.pagination.lastBlockPageNo; i++) {
+      for (let i = pagination.firstBlockPageNo; i <= pagination.lastBlockPageNo; i++) {
         this.state.pageRange.push(i);
       }
 
@@ -100,19 +102,23 @@ export default new Vuex.Store({
       console.log(this.state.pageIndex);
 
       return axios.get('/api/bbs/v1/article', {
-
         params: {
           'pageNumber': this.state.pageIndex
         },
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
+          Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
         }
       })
-        .then(({data}) => {
-          commit('GET_BBS_LIST', {data});
+        .then(data => {
+          if(data.status === 200){
+            const pagination = data.data.data.pagination;
+            const resultList = data.data.data.resultList;
+
+            commit('GET_BBS_LIST', {pagination, resultList});
+          }
 
           return data;
-        }).catch(({data}) => {
+        }).catch(data => {
           console.log("에러 ", data);
         });
     },
