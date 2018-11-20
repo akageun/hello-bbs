@@ -5,26 +5,16 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <textarea id="demo1">
-# Intro
-Go ahead, play around with the editor! Be sure to check out **bold** and *italic* styling, or even [links](https://google.com). You can type the Markdown syntax, use the toolbar, or use shortcuts like `cmd-b` or `ctrl-b`.
-## Lists
-Unordered lists can be started using the toolbar or by typing `* `, `- `, or `+ `. Ordered lists can be started by typing `1. `.
+          <h1 id="page_title" class="text-center">
 
-#### Unordered
-* Lists are a piece of cake
-* They even auto continue as you type
-* A double enter will end them
-* Tabs and shift-tabs work too
-
-#### Ordered
-1. Numbered lists...
-2. ...work too!
-
-## What about images?
-        </textarea>
+          </h1>
         </div>
-
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <textarea id="demo1"></textarea>
+        </div>
       </div>
     </div>
   </div>
@@ -40,19 +30,37 @@ Unordered lists can be started using the toolbar or by typing `* `, `- `, or `+ 
     components: {
       gnb
     },
+    data() {
+      return {
+        simpleMde: null
+      }
+    },
     mounted() {
-      console.log(this.$route.params.articleId);
-
       this.getBbsData();
     },
     methods: {
       getBbsData: function () {
-        new SimpleMDE({
+        this.simpleMde = new SimpleMDE({
           element: document.getElementById("demo1"),
           spellChecker: false,
           toolbar: false,
-        }).togglePreview();
-        ;
+        });
+
+        const articleId = this.$route.params.articleId;
+
+        this.$store.dispatch('GET_BBS', {articleId})
+          .then((data) => {
+            console.log(data.data.data);
+
+            document.getElementById('page_title').innerText = data.data.data.title;
+
+            this.simpleMde.value(data.data.data.content);
+            this.simpleMde.togglePreview();
+          })
+          .catch(({message}) => {
+            console.log("err : ", message);
+          });
+
       }
     }
   }

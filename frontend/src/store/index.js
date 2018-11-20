@@ -110,22 +110,61 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          if(data.status === 200){
+          if (data.status === 200) {
             const pagination = data.data.data.pagination;
             const resultList = data.data.data.resultList;
 
             commit('GET_BBS_LIST', {pagination, resultList});
           }
 
+        }).catch(data => {
+          console.log("에러 ", data);
+        });
+    },
+
+    GET_BBS({commit}, {articleId}) {
+
+      return axios.get('/api/bbs/v1/article/' + articleId, {
+        headers:
+          {
+            Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
+          }
+      })
+        .then(data => {
           return data;
         }).catch(data => {
           console.log("에러 ", data);
         });
     },
 
+    ADD_BBS_ARTICLE({commit}, {title, content, statusCd}) {
+      let form = new FormData();
+      form.append('title', title);
+      form.append('content', content);
+      form.append('statusCd', statusCd);
+
+      return axios.post('/api/bbs/v1/article',
+        form,
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
+          }
+        })
+        .then(data => {
+          console.log('data : ', data);
+          return data;
+        }).catch(data => {
+          console.log("에러 ", data);
+        });
+
+
+    }
+    ,
     LOGOUT({commit}) {
       commit('LOGOUT')
       router.push('/login')
-    },
+    }
+    ,
   }
 })

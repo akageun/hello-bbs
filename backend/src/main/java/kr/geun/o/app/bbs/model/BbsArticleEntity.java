@@ -35,6 +35,7 @@ public class BbsArticleEntity {
 	@Column
 	private String title;
 
+	@Lob
 	@Column
 	private String content;
 
