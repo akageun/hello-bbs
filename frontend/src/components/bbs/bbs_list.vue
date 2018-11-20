@@ -36,7 +36,9 @@
               <td>
                 <router-link :to="{path: '/bbs/'+ data.articleId}">{{data.articleId}}</router-link>
               </td>
-              <td>{{data.title}}</td>
+              <td>
+                <router-link :to="{path: '/bbs/'+ data.articleId}">{{data.title}}</router-link>
+              </td>
               <td>{{data.createdUserId}}</td>
               <td>{{data.createdAt}}</td>
               <td>{{data.updatedAt}}</td>
@@ -67,13 +69,13 @@
     },
     methods: {
       getArticle() {
-        this.$store.dispatch('GET_BBS_LIST', {})
-          .then((data) => {
-            //console.log(data);
-          })
-          .catch(({message}) => {
-            console.log("err : ", message);
-          })
+        this.$store.dispatch('GET_BBS_LIST', {});
+        // .then((data) => {
+        //   //console.log(data);
+        // })
+        // .catch(({message}) => {
+        //   console.log("err : ", message);
+        // })
       }
     }
   }
