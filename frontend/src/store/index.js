@@ -7,11 +7,11 @@ Vue.use(Vuex)
 
 const jwtTokenName = "tk";
 
-const enhanceAccessToeken = () => {
-  const {accessToken} = localStorage
-  if (!accessToken) return
-  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-}
+// const enhanceAccessToeken = () => {
+//   const {accessToken} = localStorage
+//   if (!accessToken) return
+//   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+// }
 
 //enhanceAccessToeken()
 
@@ -39,7 +39,7 @@ function isExpiredTokenCheck(data) {
 
 export default new Vuex.Store({
   state: {
-    accessToken: null,
+    /*accessToken: null,*/
     bbs: {
       bbsList: [],
       pagination: {}
@@ -49,19 +49,14 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated(state) {
-      state.accessToken = state.accessToken || localStorage.getItem(jwtTokenName);
-      return state.accessToken
+      return localStorage.getItem(jwtTokenName)
     }
   },
   mutations: {
     LOGIN(state, {data}) {
-      console.log('accessToken ', data)
-
-      state.accessToken = data
-      localStorage.setItem(jwtTokenName, data)
+      localStorage.setItem(jwtTokenName, data.data)
     },
     LOGOUT(state) {
-      state.accessToken = null
       localStorage.removeItem(jwtTokenName)
     },
     GET_BBS_LIST(state, {pagination, resultList}) {
@@ -84,8 +79,8 @@ export default new Vuex.Store({
 
       return axios.post('/api/user/v1/login', form)
         .then(({data}) => {
-          commit('LOGIN', {data})
-          router.push('/')
+          commit('LOGIN', {data});
+          router.push("/");
 
         }).catch(({data}) => {
           console.log("에러 ", data);
@@ -107,6 +102,8 @@ export default new Vuex.Store({
     },
 
     GET_BBS_LIST({commit}, {}) {
+      console.log("test1");
+
       let tmpParams = {};
       tmpParams['params'] = {
         'pageNumber': this.state.pageIndex

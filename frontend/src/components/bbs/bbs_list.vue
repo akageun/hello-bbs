@@ -70,12 +70,6 @@
     methods: {
       getArticle() {
         this.$store.dispatch('GET_BBS_LIST', {});
-        // .then((data) => {
-        //   //console.log(data);
-        // })
-        // .catch(({message}) => {
-        //   console.log("err : ", message);
-        // })
       }
     }
   }
