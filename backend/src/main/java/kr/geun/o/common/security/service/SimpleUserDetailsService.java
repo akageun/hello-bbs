@@ -1,4 +1,4 @@
-package kr.geun.o.config.security.service;
+package kr.geun.o.common.security.service;
 
 import kr.geun.o.app.user.model.UserAuthEntity;
 import kr.geun.o.app.user.model.UserEntity;

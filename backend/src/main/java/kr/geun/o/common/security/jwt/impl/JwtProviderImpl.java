@@ -1,11 +1,11 @@
-package kr.geun.o.config.security.jwt.impl;
+package kr.geun.o.common.security.jwt.impl;
 
 import io.jsonwebtoken.ClaimJwtException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import kr.geun.o.common.utils.SecUtils;
-import kr.geun.o.config.security.jwt.JwtProvider;
+import kr.geun.o.common.security.jwt.JwtProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;

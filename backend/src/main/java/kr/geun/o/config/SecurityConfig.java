@@ -1,10 +1,10 @@
-package kr.geun.o.config.security;
+package kr.geun.o.config;
 
 import kr.geun.o.common.constants.AuthorityCd;
-import kr.geun.o.config.security.jwt.JwtProvider;
-import kr.geun.o.config.security.jwt.filter.JwtAuthenticationFilter;
-import kr.geun.o.config.security.jwt.impl.JwtProviderImpl;
-import kr.geun.o.config.security.service.SimpleUserDetailsService;
+import kr.geun.o.common.security.jwt.JwtProvider;
+import kr.geun.o.common.security.jwt.filter.JwtAuthenticationFilter;
+import kr.geun.o.common.security.jwt.impl.JwtProviderImpl;
+import kr.geun.o.common.security.service.SimpleUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

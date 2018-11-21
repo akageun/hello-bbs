@@ -5,7 +5,7 @@ import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserRepository;
 import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.common.utils.SecUtils;
-import kr.geun.o.config.security.service.SimpleUserDetailsService;
+import kr.geun.o.common.security.service.SimpleUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package kr.geun.o.config.security.jwt;
+package kr.geun.o.common.security.jwt;
 
 import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.common.utils.SecUtils;

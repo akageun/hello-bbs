@@ -1,4 +1,4 @@
-package kr.geun.o.config.security.jwt;
+package kr.geun.o.common.security.jwt;
 
 import io.jsonwebtoken.ClaimJwtException;
 import org.springframework.security.core.Authentication;

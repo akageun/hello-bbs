@@ -1,6 +1,6 @@
-package kr.geun.o.config.security.jwt.filter;
+package kr.geun.o.common.security.jwt.filter;
 
-import kr.geun.o.config.security.jwt.JwtProvider;
+import kr.geun.o.common.security.jwt.JwtProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.servlet.ServletException;

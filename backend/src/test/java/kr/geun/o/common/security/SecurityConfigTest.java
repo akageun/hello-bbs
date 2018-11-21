@@ -1,4 +1,4 @@
-package kr.geun.o.config.security;
+package kr.geun.o.common.security;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
