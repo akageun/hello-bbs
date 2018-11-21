@@ -52,11 +52,7 @@
       movePage(pageIndex) {
         this.$store.state.pageIndex = (pageIndex - 1);
 
-        this.$store.dispatch('GET_BBS_LIST', {})
-          .then((data) => {
-            console.log(data);
-          })
-          .catch(({message}) => this.msg = message)
+        this.$store.dispatch('GET_BBS_LIST', {});
 
         console.log(this.$store.state.bbs.pagination)
       },

@@ -18,6 +18,7 @@ const enhanceAccessToeken = () => {
 function auth() {
 
   const token = localStorage.getItem(jwtTokenName);
+  console.log(token);
   if (token === undefined) {
     return '';
   }
@@ -27,6 +28,13 @@ function auth() {
       {
         Authorization: 'Bearer ' + token
       }
+  }
+}
+
+function isExpiredTokenCheck(data) {
+  console.log("expired : ", data);
+  if (data.status === 401) {
+    router.push('/login');
   }
 }
 
@@ -99,16 +107,16 @@ export default new Vuex.Store({
     },
 
     GET_BBS_LIST({commit}, {}) {
-      console.log(this.state.pageIndex);
+      let tmpParams = {};
+      tmpParams['params'] = {
+        'pageNumber': this.state.pageIndex
+      };
 
-      return axios.get('/api/bbs/v1/article', {
-        params: {
-          'pageNumber': this.state.pageIndex
-        },
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
-        }
-      })
+      tmpParams['headers'] = {
+        Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
+      };
+
+      return axios.get('/api/bbs/v1/article', tmpParams)
         .then(data => {
           if (data.status === 200) {
             const pagination = data.data.data.pagination;
@@ -117,19 +125,15 @@ export default new Vuex.Store({
             commit('GET_BBS_LIST', {pagination, resultList});
           }
 
-        }).catch(data => {
+        }).catch((data) => {
+          isExpiredTokenCheck(data);
           console.log("에러 ", data);
         });
     },
 
     GET_BBS({commit}, {articleId}) {
 
-      return axios.get('/api/bbs/v1/article/' + articleId, {
-        headers:
-          {
-            Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
-          }
-      })
+      return axios.get('/api/bbs/v1/article/' + articleId, auth())
         .then(data => {
           return data;
         }).catch(data => {
@@ -143,14 +147,7 @@ export default new Vuex.Store({
       form.append('content', content);
       form.append('statusCd', statusCd);
 
-      return axios.post('/api/bbs/v1/article',
-        form,
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
-          }
-        })
+      return axios.post('/api/bbs/v1/article', form, auth())
         .then(data => {
           console.log('data : ', data);
           return data;

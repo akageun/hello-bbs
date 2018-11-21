@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -36,19 +37,18 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 		IOException,
 		ServletException {
 		try {
-			Authentication authentication = jwtProvider.getAuthentication((HttpServletRequest)servletRequest);
+			Authentication authentication = jwtProvider.getAuthentication((HttpServletRequest) servletRequest);
 
 			if (authentication != null) {
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 
 		} catch (ExpiredJwtException e) {
-			//((HttpServletResponse)servletResponse).addHeader("refreshToken", jwtProvider.generatorToken());
+			((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			SecurityContextHolder.clearContext();
 			log.error("e : {}, {}", e.getMessage(), e);
 		}
 
 		filterChain.doFilter(servletRequest, servletResponse);
-
 	}
 }
