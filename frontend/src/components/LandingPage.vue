@@ -2,7 +2,6 @@
   <div>
     <gnb/>
     <bbs_list/>
-
   </div>
 </template>
 
@@ -13,22 +12,10 @@
   export default {
     data() {
       return {
-        msg: ''
       }
     },
     components: {
       gnb, bbs_list
-    },
-    created() {
-      this.getCall();
-    },
-    methods: {
-      getCall: function () {
-        // axios.get('/api/test')
-        //   .then(result => {
-        //     this.msg = result.data;
-        //   })
-      }
     }
   }
 </script>
