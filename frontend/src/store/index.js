@@ -18,7 +18,6 @@ const enhanceAccessToeken = () => {
 function auth() {
 
   const token = localStorage.getItem(jwtTokenName);
-  console.log(token);
   if (token === undefined) {
     return '';
   }
@@ -32,9 +31,9 @@ function auth() {
 }
 
 function isExpiredTokenCheck(data) {
-  console.log("expired : ", data);
-  if (data.status === 401) {
+  if (data.response.status === 401) {
     router.push('/login');
+    return;
   }
 }
 
@@ -87,6 +86,7 @@ export default new Vuex.Store({
         .then(({data}) => {
           commit('LOGIN', {data})
           router.push('/')
+
         }).catch(({data}) => {
           console.log("에러 ", data);
         });
@@ -125,9 +125,8 @@ export default new Vuex.Store({
             commit('GET_BBS_LIST', {pagination, resultList});
           }
 
-        }).catch((data) => {
-          isExpiredTokenCheck(data);
-          console.log("에러 ", data);
+        }).catch(error => {
+          isExpiredTokenCheck(error);
         });
     },
 
@@ -136,8 +135,8 @@ export default new Vuex.Store({
       return axios.get('/api/bbs/v1/article/' + articleId, auth())
         .then(data => {
           return data;
-        }).catch(data => {
-          console.log("에러 ", data);
+        }).catch(error => {
+          isExpiredTokenCheck(error);
         });
     },
 
@@ -151,11 +150,9 @@ export default new Vuex.Store({
         .then(data => {
           console.log('data : ', data);
           return data;
-        }).catch(data => {
-          console.log("에러 ", data);
+        }).catch(error => {
+          isExpiredTokenCheck(error);
         });
-
-
     }
     ,
     LOGOUT({commit}) {

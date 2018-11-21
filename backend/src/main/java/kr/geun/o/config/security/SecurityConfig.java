@@ -18,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  *
@@ -58,7 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest()
 				.authenticated()
 			.and()
-				.headers().frameOptions().disable();
+				.headers().frameOptions().disable()
+			.and()
+				.exceptionHandling()
+					.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)) ;
 		//@formatter:on
 
 		//super.configure(http);
