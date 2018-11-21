@@ -104,7 +104,7 @@ public class ArticleApiController {
 
 		bbsArticleApiService.addArticle(param.getTitle(), param.getContent(), param.getStatusCd());
 
-		return ResponseEntity.ok().body(ResData.of("성공"));
+		return CmnConst.RES;
 	}
 
 	/**
@@ -122,6 +122,6 @@ public class ArticleApiController {
 
 		bbsArticleApiService.modifyArticle(param.getArticleId(), param.getTitle(), param.getContent(), param.getStatusCd());
 
-		return ResponseEntity.ok().body(ResData.of("성공"));
+		return CmnConst.RES;
 	}
 }

@@ -2,6 +2,8 @@ package kr.geun.o.app.user.controller.api;
 
 import kr.geun.o.app.user.dto.UserDTO;
 import kr.geun.o.app.user.service.UserApiService;
+import kr.geun.o.common.constants.CmnConst;
+import kr.geun.o.common.response.ResData;
 import kr.geun.o.common.utils.CmnUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- *
+ * 유저 관련 API 컨트롤러
  *
  * @author akageun
  */
@@ -28,10 +30,17 @@ public class UserApiController {
 	@Autowired
 	private UserApiService userApiService;
 
+	/**
+	 * 로그인 API
+	 *
+	 * @param param
+	 * @param result
+	 * @return
+	 */
 	@PostMapping("/login")
-	public ResponseEntity<String> userLogin(@Valid UserDTO.Login param, BindingResult result) {
+	public ResponseEntity<ResData> userLogin(@Valid UserDTO.Login param, BindingResult result) {
 		if (result.hasErrors()) {
-			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
 		}
 
 		try {
@@ -39,29 +48,37 @@ public class UserApiController {
 
 			String token = userApiService.generatorToken(userDetails);
 
-			return ResponseEntity.ok().body(token);
+			return ResponseEntity.ok().body(ResData.of(token, "에러발생"));
 
 		} catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
 			log.error(e.getMessage(), e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("에러발생");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResData.of("에러발생"));
 		}
 
 	}
 
+	/**
+	 * 회원가입
+	 *
+	 * @param param
+	 * @param result
+	 * @return
+	 */
 	@PostMapping("/signup")
-	public ResponseEntity<String> signup(@Valid UserDTO.SignUp param, BindingResult result) {
+	public ResponseEntity<ResData> signUp(@Valid UserDTO.SignUp param, BindingResult result) {
 		if (result.hasErrors()) {
-			return new ResponseEntity<>(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
 		}
 
 		try {
 			userApiService.preCreateUser(param.getUserId(), param.getPassWd(), param.getConfirmPassWd());
 			userApiService.createUser(param.getUserId(), param.getPassWd());
 
-			return ResponseEntity.ok().body("성공");
+			return ResponseEntity.status(HttpStatus.CREATED).body(ResData.of("성공"));
 
-		} catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("에러발생");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResData.of("에러발생"));
 		}
 	}
 }

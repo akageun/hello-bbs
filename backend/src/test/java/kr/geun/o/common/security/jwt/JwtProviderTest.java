@@ -1,5 +1,6 @@
 package kr.geun.o.common.security.jwt;
 
+import io.jsonwebtoken.MalformedJwtException;
 import kr.geun.o.common.constants.AuthorityCd;
 import kr.geun.o.common.utils.SecUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +73,7 @@ public class JwtProviderTest {
 
 	}
 
-	@Test
+	@Test(expected = MalformedJwtException.class)
 	public void 토큰꺼내서_파싱에러_테스트() {
 		MockHttpServletRequest mockRequest = new MockHttpServletRequest();
 		mockRequest.addHeader("Authorization", "test.token.test");

@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * 시큐리티 설정
  *
  * @author akageun
  */
