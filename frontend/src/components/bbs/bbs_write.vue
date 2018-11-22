@@ -7,7 +7,6 @@
           <input type="text" id="title" class="form-control mb-3" placeholder="제목을 입력해주세요."/>
           <textarea id="bbs_write_area"></textarea>
         </div>
-
       </div>
       <div class="row">
         <div class="col">
@@ -34,9 +33,7 @@
         simpleMde: null
       }
     },
-    components: {
-      gnb
-    },
+    components: {gnb},
     mounted() {
       this.simpleMde = new SimpleMDE({
         element: document.getElementById("bbs_write_area"),
@@ -49,7 +46,6 @@
         const title = document.getElementById('title').value;
         const content = this.simpleMde.value();
         const statusCd = "NORMAL";
-
 
         this.$store.dispatch('ADD_BBS_ARTICLE', {title, content, statusCd})
           .then((data) => {

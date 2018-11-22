@@ -2,20 +2,18 @@
   <div>
     <gnb/>
     <bbs_list/>
+    <bbs_pagination/>
   </div>
 </template>
 
 <script>
   import gnb from '@/components/layouts/gnb'
   import bbs_list from '@/components/bbs/bbs_list'
+  import Bbs_pagination from "@/components/bbs/bbs_pagination";
 
   export default {
-    data() {
-      return {
-      }
-    },
     components: {
-      gnb, bbs_list
+      gnb, bbs_list, Bbs_pagination
     }
   }
 </script>

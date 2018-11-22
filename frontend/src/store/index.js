@@ -3,32 +3,9 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const jwtTokenName = "tk";
-
-// const enhanceAccessToeken = () => {
-//   const {accessToken} = localStorage
-//   if (!accessToken) return
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-// }
-
-//enhanceAccessToeken()
-
-function auth() {
-
-  const token = localStorage.getItem(jwtTokenName);
-  if (token === undefined) {
-    return '';
-  }
-
-  return {
-    headers:
-      {
-        Authorization: 'Bearer ' + token
-      }
-  }
-}
 
 function isExpiredTokenCheck(data) {
   if (data.response.status === 401) {
@@ -36,6 +13,20 @@ function isExpiredTokenCheck(data) {
     return;
   }
 }
+
+function getParamsWithAuth(params) {
+  let tmpParams = {};
+  if (params !== undefined) {
+    tmpParams['params'] = params;
+  }
+
+  tmpParams['headers'] = {
+    Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
+  };
+
+  return tmpParams;
+}
+
 
 export default new Vuex.Store({
   state: {
@@ -100,20 +91,13 @@ export default new Vuex.Store({
           console.log("에러 ", data);
         });
     },
+    LOGOUT({commit}) {
+      commit('LOGOUT');
+      router.push('/login');
+    },
 
     GET_BBS_LIST({commit}, {}) {
-      console.log("test1");
-
-      let tmpParams = {};
-      tmpParams['params'] = {
-        'pageNumber': this.state.pageIndex
-      };
-
-      tmpParams['headers'] = {
-        Authorization: 'Bearer ' + localStorage.getItem(jwtTokenName)
-      };
-
-      return axios.get('/api/bbs/v1/article', tmpParams)
+      return axios.get('/api/bbs/v1/article', getParamsWithAuth({'pageNumber': this.state.pageIndex}))
         .then(data => {
           if (data.status === 200) {
             const pagination = data.data.data.pagination;
@@ -129,7 +113,7 @@ export default new Vuex.Store({
 
     GET_BBS({commit}, {articleId}) {
 
-      return axios.get('/api/bbs/v1/article/' + articleId, auth())
+      return axios.get('/api/bbs/v1/article/' + articleId, getParamsWithAuth())
         .then(data => {
           return data;
         }).catch(error => {
@@ -143,7 +127,7 @@ export default new Vuex.Store({
       form.append('content', content);
       form.append('statusCd', statusCd);
 
-      return axios.post('/api/bbs/v1/article', form, auth())
+      return axios.post('/api/bbs/v1/article', form, getParamsWithAuth())
         .then(data => {
           console.log('data : ', data);
           return data;
@@ -151,11 +135,5 @@ export default new Vuex.Store({
           isExpiredTokenCheck(error);
         });
     }
-    ,
-    LOGOUT({commit}) {
-      commit('LOGOUT')
-      router.push('/login')
-    }
-    ,
   }
 })

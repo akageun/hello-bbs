@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <router-view/>
-
-    <!--{{$route.path}}-->
   </div>
 </template>
 
@@ -11,7 +9,6 @@
     name: 'App'
   }
 </script>
-
 <style>
 
 </style>
