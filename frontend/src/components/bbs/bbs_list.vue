@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid container-md">
     <div class="row">
       <div class="col">
         <div class="float-right">
@@ -18,24 +18,24 @@
           <colgroup>
             <col width="5%"/>
             <col width="*"/>
-            <col width="10%"/>
-            <col width="10%"/>
-            <col width="10%"/>
+            <col width="8%"/>
+            <col width="15%"/>
+            <col width="15%"/>
             <col width="5%"/>
           </colgroup>
           <thead class="thead-light">
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
+          <tr >
+            <th >ID</th>
+            <th >Title</th>
             <th>Writer</th>
-            <th>Created at</th>
-            <th>Updated at</th>
+            <th>Created</th>
+            <th>Updated</th>
             <th>Function</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="(data, index) in $store.state.bbs.bbsList">
-            <td>
+            <td scope="row">
               <router-link :to="{path: '/bbs/'+ data.articleId}">{{data.articleId}}</router-link>
             </td>
             <td>
@@ -46,7 +46,7 @@
             <td>{{data.updatedAt}}</td>
             <td>
               <router-link :to="{path: '/bbs/write/'+ data.articleId}" class="btn btn-warning btn-sm">
-                수정
+                Modify
               </router-link>
             </td>
           </tr>

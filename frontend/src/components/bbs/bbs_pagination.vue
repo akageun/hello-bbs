@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid container-md">
     <div class="row">
       <div class="col">
         <nav aria-label="Page navigation">

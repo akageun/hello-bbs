@@ -4,6 +4,7 @@ import LandingPage from '@/components/LandingPage';
 import login from '@/components/user/login';
 import bbs_detail from '@/components/bbs/bbs_detail'
 import bbs_write from '@/components/bbs/bbs_write'
+import bbs_modify from '@/components/bbs/bbs_modify'
 
 import not_found from '@/components/error/not_found'
 import store from '../store'
@@ -36,6 +37,12 @@ export default new Router({
       path: '/bbs/write',
       name: 'bbs_write',
       component: bbs_write,
+      beforeEnter: requireAuth()
+    },
+    {
+      path: '/bbs/write/:articleId',
+      name: 'bbs_modify',
+      component: bbs_modify,
       beforeEnter: requireAuth()
     },
     {

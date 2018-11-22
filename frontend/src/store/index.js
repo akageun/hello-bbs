@@ -134,6 +134,19 @@ export default new Vuex.Store({
         }).catch(error => {
           isExpiredTokenCheck(error);
         });
+    },
+    MODIFY_BBS_ARTICLE({commit}, {articleId, title, content, statusCd}) {
+      let form = new FormData();
+      form.append('title', title);
+      form.append('content', content);
+      form.append('statusCd', statusCd);
+
+      return axios.put('/api/bbs/v1/article/'+ articleId, form, getParamsWithAuth())
+        .then(data => {
+          return data;
+        }).catch(error => {
+          isExpiredTokenCheck(error);
+        });
     }
   }
 })
