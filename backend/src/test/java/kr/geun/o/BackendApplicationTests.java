@@ -1,4 +1,4 @@
-package kr.geun.o.app;
+package kr.geun.o;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
