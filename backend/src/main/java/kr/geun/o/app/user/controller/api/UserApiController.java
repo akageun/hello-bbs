@@ -40,7 +40,7 @@ public class UserApiController {
 	@PostMapping("/login")
 	public ResponseEntity<ResData> userLogin(@Valid UserDTO.Login param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
 		try {
@@ -67,7 +67,7 @@ public class UserApiController {
 	@PostMapping("/signup")
 	public ResponseEntity<ResData> signUp(@Valid UserDTO.SignUp param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
 		try {

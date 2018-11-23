@@ -43,7 +43,7 @@ public class ArticleApiController {
 	@GetMapping("/article")
 	public ResponseEntity<ResData> getArticlePage(@Valid BbsArticleDTO.Page param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
 		Sort sort = new Sort(Sort.Direction.DESC, "articleId");
@@ -78,7 +78,7 @@ public class ArticleApiController {
 	@GetMapping("/article/{articleId}")
 	public ResponseEntity<ResData> getArticleOne(@Valid BbsArticleDTO.Get param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
 		BbsArticleEntity dbInfo = bbsArticleApiService.get(param.getArticleId());
@@ -99,7 +99,7 @@ public class ArticleApiController {
 	@PostMapping("/article")
 	public ResponseEntity<ResData> addArticle(@Valid BbsArticleDTO.Add param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
 		bbsArticleApiService.addArticle(param.getTitle(), param.getContent(), param.getStatusCd());
@@ -117,7 +117,7 @@ public class ArticleApiController {
 	@PutMapping("/article/{articleId}")
 	public ResponseEntity<ResData> modifyArticle(@Valid BbsArticleDTO.Modify param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
 		bbsArticleApiService.modifyArticle(param.getArticleId(), param.getTitle(), param.getContent(), param.getStatusCd());
