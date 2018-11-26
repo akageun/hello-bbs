@@ -35,7 +35,7 @@ module.exports = {
   */
   build: {
     vendor: [
-      'simplemde'
+      'simplemde', 'codemirror'
     ],
     /*
     ** Run ESLint on save
