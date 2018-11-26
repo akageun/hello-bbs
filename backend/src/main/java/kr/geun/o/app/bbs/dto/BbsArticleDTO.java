@@ -43,6 +43,9 @@ public class BbsArticleDTO {
 		//TODO : 길이체크
 		@NotBlank
 		private String content;
+
+		@Min(0)
+		private Long categoryId;
 	}
 
 	@Data
@@ -63,5 +66,8 @@ public class BbsArticleDTO {
 		//TODO : 길이체크
 		@NotBlank
 		private String content;
+
+		@Min(0)
+		private Long categoryId;
 	}
 }

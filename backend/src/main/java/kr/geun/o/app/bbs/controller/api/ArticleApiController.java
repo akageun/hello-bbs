@@ -6,7 +6,6 @@ import kr.geun.o.app.bbs.service.BbsArticleApiService;
 import kr.geun.o.common.constants.CmnConst;
 import kr.geun.o.common.pagination.PaginationInfo;
 import kr.geun.o.common.response.ResData;
-import kr.geun.o.common.utils.CmnUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,7 +56,7 @@ public class ArticleApiController {
             resultPage.getNumberOfElements(),
             resultPage.getTotalElements(),
 			resultPage.getTotalPages(),
-            pageable.getPageSize());
+            5);
         //@formatter:on
 
 		Map<String, Object> rtnMap = new HashMap<>();
@@ -102,7 +101,7 @@ public class ArticleApiController {
 			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
-		bbsArticleApiService.addArticle(param.getTitle(), param.getContent(), param.getStatusCd());
+		bbsArticleApiService.addArticle(param.getTitle(), param.getContent(), param.getStatusCd(), param.getCategoryId());
 
 		return CmnConst.RES;
 	}
@@ -120,7 +119,7 @@ public class ArticleApiController {
 			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
-		bbsArticleApiService.modifyArticle(param.getArticleId(), param.getTitle(), param.getContent(), param.getStatusCd());
+		bbsArticleApiService.modifyArticle(param.getArticleId(), param.getTitle(), param.getContent(), param.getStatusCd(), param.getCategoryId());
 
 		return CmnConst.RES;
 	}

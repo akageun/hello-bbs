@@ -33,8 +33,9 @@ public interface BbsArticleApiService {
 	 * @param title
 	 * @param content
 	 * @param statusCd
+	 * @param categoryId
 	 */
-	void addArticle(String title, String content, String statusCd);
+	void addArticle(String title, String content, String statusCd, Long categoryId);
 
 	/**
 	 * 글 수정
@@ -43,6 +44,7 @@ public interface BbsArticleApiService {
 	 * @param title
 	 * @param content
 	 * @param statusCd
+	 * @param categoryId
 	 */
-	void modifyArticle(Long articleId, String title, String content, String statusCd);
+	void modifyArticle(Long articleId, String title, String content, String statusCd, Long categoryId);
 }

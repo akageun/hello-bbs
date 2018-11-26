@@ -52,10 +52,11 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 	 * @param title
 	 * @param content
 	 * @param statusCd
+	 * @param categoryId
 	 */
 	@Transactional
 	@Override
-	public void addArticle(String title, String content, String statusCd) {
+	public void addArticle(String title, String content, String statusCd, Long categoryId) {
 
 		String userId = SecUtils.getUserName();
 
@@ -65,6 +66,7 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 				.title(title)
 				.content(content)
 				.statusCd(statusCd)
+				.categoryId(categoryId)
 				.createdUserId(userId)
 				.updatedUserId(userId)
 			.build();
@@ -80,10 +82,11 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 	 * @param title
 	 * @param content
 	 * @param statusCd
+	 * @param categoryId
 	 */
 	@Transactional
 	@Override
-	public void modifyArticle(Long articleId, String title, String content, String statusCd) {
+	public void modifyArticle(Long articleId, String title, String content, String statusCd, Long categoryId) {
 		String userId = SecUtils.getUserName();
 
 		//@formatter:off
@@ -93,6 +96,7 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 				.title(title)
 				.content(content)
 				.statusCd(statusCd)
+				.categoryId(categoryId)
 				.createdUserId(userId)
 				.updatedUserId(userId)
 			.build();
