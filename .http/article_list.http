@@ -1,0 +1,6 @@
+GET http://localhost:9987/api/bbs/v1/article
+content-type: application/x-www-form-urlencoded
+
+pageNumber=0
+
+###
