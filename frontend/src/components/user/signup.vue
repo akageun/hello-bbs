@@ -56,9 +56,7 @@
         const passWd = this.passWd;
         const passWdConfirm = this.passWdConfirm;
 
-        this.$store.dispatch('SIGNUP', {userId, passWd, passWdConfirm})
-          .then(() => this.redirect())
-          .catch(({message}) => this.msg = message)
+        this.$store.dispatch('SIGNUP', {userId, passWd, passWdConfirm});
       }
     }
 
