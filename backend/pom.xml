@@ -19,6 +19,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+
+        <frontend.resources.dir>src/main/resources/public/</frontend.resources.dir>
     </properties>
 
     <dependencies>
@@ -128,7 +130,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>src/main/resources/public</outputDirectory>
+                            <outputDirectory>${frontend.resources.dir}</outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>
                                 <resource>
@@ -152,7 +154,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>src/main/resources/public/</directory>
+                            <directory>${frontend.resources.dir}</directory>
                             <includes>
                                 <include>**/**</include>
                             </includes>
