@@ -8,6 +8,9 @@ import store from './store'
 import 'expose-loader?$!expose-loader?jQuery!jquery'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'select2'
+import 'select2/dist/css/select2.min.css'
+import 'select2-bootstrap-theme/dist/select2-bootstrap.min.css'
 
 Vue.config.productionTip = false
 

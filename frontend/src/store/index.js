@@ -49,17 +49,6 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       localStorage.removeItem(jwtTokenName)
-    },
-    GET_BBS_LIST(state, {pagination, resultList}) {
-      state.bbs.bbsList = resultList;
-      state.bbs.pagination = pagination;
-
-      this.state.pageRange = [];
-
-      for (let i = pagination.firstBlockPageNo; i <= pagination.lastBlockPageNo; i++) {
-        this.state.pageRange.push(i);
-      }
-
     }
   },
   actions: {
@@ -100,10 +89,10 @@ export default new Vuex.Store({
       return axios.get('/api/bbs/v1/article', getParamsWithAuth({'pageNumber': this.state.pageIndex}))
         .then(data => {
           if (data.status === 200) {
-            const pagination = data.data.data.pagination;
-            const resultList = data.data.data.resultList;
-
-            commit('GET_BBS_LIST', {pagination, resultList});
+            return {
+              "pagination": data.data.data.pagination,
+              "resultList": data.data.data.resultList
+            }
           }
 
         }).catch(error => {
@@ -115,17 +104,19 @@ export default new Vuex.Store({
 
       return axios.get('/api/bbs/v1/article/' + articleId, getParamsWithAuth())
         .then(data => {
+          console.log(data.data.data);
           return data;
         }).catch(error => {
           isExpiredTokenCheck(error);
         });
     },
 
-    ADD_BBS_ARTICLE({commit}, {title, content, statusCd}) {
+    ADD_BBS_ARTICLE({commit}, {title, content, statusCd, categoryId}) {
       let form = new FormData();
       form.append('title', title);
       form.append('content', content);
       form.append('statusCd', statusCd);
+      form.append('categoryId', categoryId);
 
       return axios.post('/api/bbs/v1/article', form, getParamsWithAuth())
         .then(data => {
@@ -135,13 +126,14 @@ export default new Vuex.Store({
           isExpiredTokenCheck(error);
         });
     },
-    MODIFY_BBS_ARTICLE({commit}, {articleId, title, content, statusCd}) {
+    MODIFY_BBS_ARTICLE({commit}, {articleId, title, content, statusCd, categoryId}) {
       let form = new FormData();
       form.append('title', title);
       form.append('content', content);
       form.append('statusCd', statusCd);
+      form.append('categoryId', categoryId);
 
-      return axios.put('/api/bbs/v1/article/'+ articleId, form, getParamsWithAuth())
+      return axios.put('/api/bbs/v1/article/' + articleId, form, getParamsWithAuth())
         .then(data => {
           return data;
         }).catch(error => {

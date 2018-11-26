@@ -54,11 +54,7 @@
         const userId = this.userId;
         const passWd = this.passWd;
 
-        this.$store.dispatch('LOGIN', {userId, passWd})
-          .then(() => {
-
-          })
-          .catch(({message}) => this.msg = message)
+        this.$store.dispatch('LOGIN', {userId, passWd});
       }
     }
   }

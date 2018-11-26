@@ -1,31 +1,29 @@
 <template>
-  <div class="container-fluid container-md">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" v-if="preview()">
-              <a class="page-link" @click="movePage($store.state.bbs.pagination.firstPageNo)" tabindex="-1">&laquo;</a>
-            </li>
-            <li class="page-item" v-if="preview()">
-              <a class="page-link" @click="movePage($store.state.bbs.pagination.preBlockPageNo)" tabindex="-1">&lt;</a>
-            </li>
-            <li v-for="(data, index) in $store.state.pageRange"
-                class="page-item " :class="{active: isActive(data)}"
-                v-if="data <= $store.state.bbs.pagination.totalPages">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" v-if="propsPagination.pageNumber > propsPagination.pageBlockSize">
+            <a class="page-link" @click="movePage(propsPagination.firstPageNo)" tabindex="-1">&laquo;</a>
+          </li>
+          <li class="page-item" v-if="propsPagination.pageNumber > propsPagination.pageBlockSize">
+            <a class="page-link" @click="movePage(propsPagination.preBlockPageNo)" tabindex="-1">&lt;</a>
+          </li>
+          <li v-for="(data, index) in pageRange"
+              class="page-item " :class="{active: isActive(data)}"
+              v-if="data <= propsPagination.totalPages">
 
-              <a class="page-link" @click="movePage(data)">{{data}}</a>
-            </li>
+            <a class="page-link" @click="movePage(data)">{{data}}</a>
+          </li>
 
-            <li class="page-item" v-if="nextPage()">
-              <a class="page-link" @click="movePage($store.state.bbs.pagination.nextBlockPageNo + 1)" tabindex="-1">&gt;</a>
-            </li>
-            <li class="page-item" v-if="nextPage()">
-              <a class="page-link" @click="movePage($store.state.bbs.pagination.lastPageNo)" tabindex="-1">&raquo;</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+          <li class="page-item" v-if="propsPagination.totalPages > propsPagination.nextBlockPageNo">
+            <a class="page-link" @click="movePage(propsPagination.nextBlockPageNo + 1)" tabindex="-1">&gt;</a>
+          </li>
+          <li class="page-item" v-if="propsPagination.totalPages > propsPagination.nextBlockPageNo">
+            <a class="page-link" @click="movePage(propsPagination.lastPageNo)" tabindex="-1">&raquo;</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
@@ -33,20 +31,28 @@
 <script>
   export default {
     name: "bbs_pagination",
+    props: {
+      propsPagination: {
+        type: Object,
+        default() {
+          return {};
+        },
+      },
+      pageRange: {
+        type: Array,
+        default() {
+          return {};
+        },
+      }
+    },
     methods: {
       movePage(pageIndex) {
         this.$store.state.pageIndex = (pageIndex - 1);
-        this.$store.dispatch('GET_BBS_LIST', {});
+        this.$parent.bbsList();
       },
       isActive(i) {
-        return i === this.$store.state.bbs.pagination.pageNumber;
+        return i === this.propsPagination.pageNumber;
       },
-      preview() {
-        return this.$store.state.bbs.pagination.pageNumber > this.$store.state.bbs.pagination.pageBlockSize;
-      },
-      nextPage() {
-        return this.$store.state.bbs.pagination.totalPages > this.$store.state.bbs.pagination.nextBlockPageNo;
-      }
     }
   }
 </script>

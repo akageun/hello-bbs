@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LandingPage from '@/components/LandingPage';
+import Dashboard from '@/components/Dashboard';
+
+
 import login from '@/components/user/login';
 import bbs_detail from '@/components/bbs/bbs_detail'
 import bbs_write from '@/components/bbs/bbs_write'
@@ -24,8 +26,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'LandingPage',
-      component: LandingPage,
+      name: 'Dashboard',
+      component: Dashboard,
       beforeEnter: requireAuth()
     },
     {
