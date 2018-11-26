@@ -9,10 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
- *
+ * 게시판 카테고리
  *
  * @author akageun
  */
@@ -24,30 +25,37 @@ import java.time.LocalDateTime;
 @Table(name = "bbs_category")
 public class BbsCategoryEntity {
 
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long categoryId;
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long categoryId;
 
-    @Column
-    private String createdUserId;
+	@Column(length = 512)
+	@Size(max = 512, min = 1)
+	private String name;
 
-    @Column
-    private String updatedUserId;
+	@Column
+	private String type; //bootstrap label color 넣은 곳
 
-    /**
-     * 생성일시
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+	@Column
+	private String createdUserId;
 
-    /**
-     * 수정일시
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+	@Column
+	private String updatedUserId;
+
+	/**
+	 * 생성일시
+	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@CreationTimestamp
+	@Column(name = "created_at", nullable = false, updatable = false)
+	private LocalDateTime createdAt;
+
+	/**
+	 * 수정일시
+	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@UpdateTimestamp
+	@Column(name = "updated_at", nullable = false)
+	private LocalDateTime updatedAt;
 }

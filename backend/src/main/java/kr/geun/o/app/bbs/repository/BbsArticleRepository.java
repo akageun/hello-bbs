@@ -4,7 +4,7 @@ import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
+ * 게시글 repo
  *
  * @author akageun
  */

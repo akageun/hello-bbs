@@ -1,18 +1,23 @@
 package kr.geun.o.app.bbs.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
- *
+ * 게시글 Entity
  *
  * @author akageun
  */
@@ -31,6 +36,9 @@ public class BbsArticleEntity {
 
 	@Column
 	private String statusCd;
+
+	@Column
+	private Long categoryId;
 
 	@Column
 	private String title;
@@ -60,4 +68,18 @@ public class BbsArticleEntity {
 	@UpdateTimestamp
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
+
+	@OneToOne
+	@JoinColumn(name = "categoryId", insertable = false, updatable = false)
+	private BbsCategoryEntity bbsCategoryEntity;
+
+	/**
+	 * 무한루프로 인해 override
+	 *
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

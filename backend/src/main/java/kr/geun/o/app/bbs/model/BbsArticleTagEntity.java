@@ -1,6 +1,8 @@
 package kr.geun.o.app.bbs.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +14,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- *
+ * 게시글 태그 mapping Entity
  *
  * @author akageun
  */
@@ -21,13 +23,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "bbs_article_tag")
+@Table(name = "bbs_article_tag", indexes = { @Index(name = "IDX_articleId", columnList = "articleId") })
 public class BbsArticleTagEntity {
 
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long articleTagId;
+
+	@Column
+	private Long articleId;
+
+	@Column
+	private Long tagId;
 
 	@Column
 	private String createdUserId;
@@ -50,4 +58,5 @@ public class BbsArticleTagEntity {
 	@UpdateTimestamp
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
+
 }

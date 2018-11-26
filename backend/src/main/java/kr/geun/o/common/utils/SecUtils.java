@@ -33,7 +33,7 @@ public class SecUtils {
 
 	/**
 	 * Convert
-	 *  - String -> Page<GrantedAuthority>
+	 *  - String -> Delete<GrantedAuthority>
 	 *
 	 * @param authoritiesStr
 	 * @return
@@ -44,7 +44,7 @@ public class SecUtils {
 
 	/**
 	 * Convert
-	 *  - Page<String> -> Page<GrantedAuthority>
+	 *  - Delete<String> -> Delete<GrantedAuthority>
 	 *
 	 * @param authorities
 	 * @return
