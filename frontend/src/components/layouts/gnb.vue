@@ -9,7 +9,17 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" >
+          <li class="nav-item dropdown" v-if="$store.getters.isAdmin">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ADMIN</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+
+
           <!--<li class="nav-item active">-->
           <!--<a class="nav-link" href="/">-->
           <!--Home -->
@@ -37,6 +47,12 @@
 <script>
   export default {
     name: "gnb",
+    data() {
+      return {}
+    },
+    created() {
+      this.$store.commit('AUTH_SETTING', {});
+    },
     methods: {
       logout() {
         this.$store.dispatch('LOGOUT', {})

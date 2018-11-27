@@ -21,6 +21,7 @@
           <button type="button" class="btn btn-block btn-outline-success" @click="saveData">
             SAVE
           </button>
+          <br>
         </div>
       </div>
     </div>
@@ -79,7 +80,6 @@
           }
         }
       });
-
     },
     methods: {
       saveData() {
@@ -87,6 +87,7 @@
         const content = this.simpleMde.value();
         const categoryId = document.getElementById('category_id').value;
         const statusCd = "NORMAL";
+        console.log('content : ',content);
 
         this.$store.dispatch('ADD_BBS_ARTICLE', {title, content, statusCd, categoryId})
           .then((data) => {

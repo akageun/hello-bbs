@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+import VueJwtDecode from 'vue-jwt-decode'
 
 Vue.use(Vuex);
 
@@ -27,9 +28,9 @@ function getParamsWithAuth(params) {
   return tmpParams;
 }
 
-
 export default new Vuex.Store({
   state: {
+    auth: [],
     /*accessToken: null,*/
     bbs: {
       bbsList: [],
@@ -39,6 +40,10 @@ export default new Vuex.Store({
     pageRange: []
   },
   getters: {
+    isAdmin(state) {
+
+      return state.auth.includes('ROLE_ADMIN');
+    },
     isAuthenticated(state) {
       return localStorage.getItem(jwtTokenName)
     }
@@ -49,6 +54,15 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       localStorage.removeItem(jwtTokenName)
+    },
+    AUTH_SETTING(state) {
+      const tmpAuth = VueJwtDecode.decode(localStorage.getItem(jwtTokenName)).auth;
+      console.log('tmpAuth : ', tmpAuth);
+      const tmpAuthArr = tmpAuth.split(',');
+
+      console.log('tmpAuthArr : ', tmpAuthArr);
+
+      this.state.auth = tmpAuthArr;
     }
   },
   actions: {
