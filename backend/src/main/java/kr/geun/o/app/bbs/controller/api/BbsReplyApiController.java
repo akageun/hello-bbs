@@ -17,7 +17,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/api/bbs/v1")
-public class ReplyApiController {
+public class BbsReplyApiController {
 
 	@GetMapping("/reply")
 	public ResponseEntity<ResData> getReply(@Valid BbsReplyDTO.Page param, BindingResult result) {

@@ -52,6 +52,15 @@ public class TempApplicationRunner implements CommandLineRunner {
 		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd(AuthorityCd.USER.roleCd()).build();
 		userAuthRepository.save(userAuthEntityParam);
 
+		UserEntity userEntityParam2 = UserEntity.builder().userId(userId + "1").passWd(passwordEncoder.encode("test")).build();
+		userRepository.save(userEntityParam2);
+
+		UserAuthEntity userAuthEntityParam2 = UserAuthEntity.builder().userId(userId + "1").authorityCd(AuthorityCd.ADMIN.roleCd()).build();
+		userAuthRepository.save(userAuthEntityParam2);
+
+		UserAuthEntity userAuthEntityParam3 = UserAuthEntity.builder().userId(userId + "1").authorityCd(AuthorityCd.USER.roleCd()).build();
+		userAuthRepository.save(userAuthEntityParam3);
+
 		List<BbsCategoryEntity> bbsCategoryEntities = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {

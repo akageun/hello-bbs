@@ -24,6 +24,13 @@ public class BbsCategoryApiController {
 	@Autowired
 	private BbsCategoryApiService bbsCategoryApiService;
 
+	/**
+	 * 카테고리 검색
+	 *
+	 * @param param
+	 * @param result
+	 * @return
+	 */
 	@GetMapping("/search")
 	public ResponseEntity<ResData> categorySearch(@Valid BbsCategoryDTO.Search param, BindingResult result) {
 		if (result.hasErrors()) {

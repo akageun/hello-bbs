@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/bbs/v1")
-public class ArticleApiController {
+public class BbsArticleApiController {
 
 	@Autowired
 	private BbsArticleApiService bbsArticleApiService;
