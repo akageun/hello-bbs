@@ -8,6 +8,8 @@ import bbs_detail from '@/components/bbs/bbs_detail'
 import bbs_write from '@/components/bbs/bbs_write'
 import bbs_modify from '@/components/bbs/bbs_modify'
 
+import admin_category from '@/components/admin/category'
+
 import not_found from '@/components/error/not_found'
 import store from '../store'
 
@@ -21,6 +23,13 @@ const requireAuth = () => (to, from, next) => {
   next('/login')
 }
 
+const requireAuthAdmin = () => (to, from, next) => {
+  if (store.getters.isAdminStorage) {
+    return next();
+  }
+
+  next('/login')
+}
 
 export default new Router({
   routes: [
@@ -52,6 +61,12 @@ export default new Router({
       name: 'bbs_detail',
       component: bbs_detail,
       beforeEnter: requireAuth()
+    },
+    {
+      path: '/admin/category',
+      name: 'admin_category',
+      component: admin_category,
+      beforeEnter: requireAuthAdmin()
     },
     {
       path: '*',

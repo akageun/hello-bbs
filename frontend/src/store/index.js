@@ -40,8 +40,12 @@ export default new Vuex.Store({
     pageRange: []
   },
   getters: {
+    isAdminStorage(state) {
+      const tmpAuth = VueJwtDecode.decode(localStorage.getItem(jwtTokenName)).auth;
+      const tmpAuthArr = tmpAuth.split(',');
+      return tmpAuthArr.includes('ROLE_ADMIN');
+    },
     isAdmin(state) {
-
       return state.auth.includes('ROLE_ADMIN');
     },
     isAuthenticated(state) {
@@ -57,11 +61,7 @@ export default new Vuex.Store({
     },
     AUTH_SETTING(state) {
       const tmpAuth = VueJwtDecode.decode(localStorage.getItem(jwtTokenName)).auth;
-      console.log('tmpAuth : ', tmpAuth);
       const tmpAuthArr = tmpAuth.split(',');
-
-      console.log('tmpAuthArr : ', tmpAuthArr);
-
       this.state.auth = tmpAuthArr;
     }
   },

@@ -11,26 +11,13 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto" >
           <li class="nav-item dropdown" v-if="$store.getters.isAdmin">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ADMIN</a>
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ADMIN
+            </a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <router-link class="dropdown-item" to="/admin/category">Category</router-link>
             </div>
           </li>
-
-
-          <!--<li class="nav-item active">-->
-          <!--<a class="nav-link" href="/">-->
-          <!--Home -->
-          <!--</a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>-->
         </ul>
         <div class="form-inline mt-2 mt-md-0">
           <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="Search" aria-label="Search">
