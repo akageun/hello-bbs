@@ -32,7 +32,7 @@ public class AdminBbsArticleTag {
 	 * @return
 	 */
 	@GetMapping("/tag")
-	public ResponseEntity<ResData> articleDelete(@Valid AdminBbsArticleTagDTO.Page param, BindingResult result) {
+	public ResponseEntity<ResData> tagPage(@Valid AdminBbsArticleTagDTO.Page param, BindingResult result) {
 		if (result.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
 		}

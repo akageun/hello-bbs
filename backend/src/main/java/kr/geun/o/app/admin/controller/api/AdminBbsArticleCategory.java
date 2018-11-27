@@ -31,7 +31,7 @@ public class AdminBbsArticleCategory {
 	 * @return
 	 */
 	@GetMapping("/category")
-	public ResponseEntity<ResData> articleDelete(@Valid AdminBbsArticleCategoryDTO.Page param, BindingResult result) {
+	public ResponseEntity<ResData> categoryPage(@Valid AdminBbsArticleCategoryDTO.Page param, BindingResult result) {
 		if (result.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
 		}
