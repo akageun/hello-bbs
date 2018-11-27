@@ -16,12 +16,13 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <router-link class="dropdown-item" to="/admin/category">Category</router-link>
+              <router-link class="dropdown-item" to="/admin/userManage">UserManage</router-link>
             </div>
           </li>
         </ul>
         <div class="form-inline mt-2 mt-md-0">
-          <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success  btn-sm my-2 my-sm-0 mr-1">Search</button>
+          <!--<input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="Search" aria-label="Search">-->
+          <!--<button class="btn btn-outline-success  btn-sm my-2 my-sm-0 mr-1">Search</button>-->
           <button class="btn btn-outline-info btn-sm" @click="logout">
             LogOut
           </button>

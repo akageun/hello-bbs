@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid container-md">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-sm-12 offset-md-1 col-md-10 col-lg-10 offset-lg-1">
         <h4>
           Board
           <span class="float-right">

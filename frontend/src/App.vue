@@ -10,7 +10,7 @@
   }
 </script>
 <style>
-  body{
+  body {
     font-size: 14px;
   }
 </style>

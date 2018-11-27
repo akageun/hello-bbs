@@ -9,6 +9,7 @@ import bbs_write from '@/components/bbs/bbs_write'
 import bbs_modify from '@/components/bbs/bbs_modify'
 
 import admin_category from '@/components/admin/category'
+import admin_user_manage from '@/components/admin/userManage'
 
 import not_found from '@/components/error/not_found'
 import store from '../store'
@@ -66,6 +67,12 @@ export default new Router({
       path: '/admin/category',
       name: 'admin_category',
       component: admin_category,
+      beforeEnter: requireAuthAdmin()
+    },
+    {
+      path: '/admin/userManage',
+      name: 'admin_user_manage',
+      component: admin_user_manage,
       beforeEnter: requireAuthAdmin()
     },
     {

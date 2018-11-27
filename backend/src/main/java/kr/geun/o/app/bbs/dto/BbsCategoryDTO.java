@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- *
+ * 카테고리 DTO
  *
  * @author akageun
  */
