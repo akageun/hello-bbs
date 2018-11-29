@@ -20,4 +20,10 @@ public class AdminBbsArticleCategoryDTO {
 		private int pageNumber;
 	}
 
+	@Data
+	@Builder
+	public static class Get {
+		@Min(0)
+		private Long categoryId;
+	}
 }
