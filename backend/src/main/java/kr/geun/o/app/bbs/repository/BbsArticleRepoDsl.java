@@ -14,12 +14,12 @@ public interface BbsArticleRepoDsl {
 	 *
 	 * @param param
 	 */
-	void addArticle(BbsArticleEntity param);
+	void add(BbsArticleEntity param);
 
 	/**
 	 * 게시글 수정
 	 *
 	 * @param param
 	 */
-	void updateArticle(BbsArticleEntity param);
+	void update(BbsArticleEntity param);
 }

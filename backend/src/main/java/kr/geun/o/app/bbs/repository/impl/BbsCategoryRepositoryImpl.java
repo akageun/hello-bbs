@@ -1,40 +1,40 @@
 package kr.geun.o.app.bbs.repository.impl;
 
-import kr.geun.o.app.bbs.model.BbsArticleEntity;
-import kr.geun.o.app.bbs.repository.BbsArticleRepoDsl;
+import kr.geun.o.app.bbs.model.BbsCategoryEntity;
+import kr.geun.o.app.bbs.repository.BbsCategoryRepoDsl;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * 게시글 관련 커스텀 Repo
+ *
  *
  * @author akageun
  */
 @Repository
-public class BbsArticleRepositoryImpl implements BbsArticleRepoDsl {
+public class BbsCategoryRepositoryImpl implements BbsCategoryRepoDsl {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	/**
-	 * 게시글 추가
+	 *  추가
 	 *
 	 * @param param
 	 */
 	@Override
-	public void add(BbsArticleEntity param) {
+	public void add(BbsCategoryEntity param) {
 		em.persist(param);
 	}
 
 	/**
-	 * 게시글 수정
+	 *  수정
 	 *
 	 * @param param
 	 */
 	@Override
-	public void update(BbsArticleEntity param) {
+	public void update(BbsCategoryEntity param) {
 		em.merge(param);
 	}
 }

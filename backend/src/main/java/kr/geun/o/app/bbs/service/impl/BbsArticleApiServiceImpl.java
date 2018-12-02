@@ -72,7 +72,7 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 			.build();
 		//@formatter:on
 
-		bbsArticleRepository.addArticle(dbParam);
+		bbsArticleRepository.add(dbParam);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class BbsArticleApiServiceImpl implements BbsArticleApiService {
 			.build();
 		//@formatter:on
 
-		bbsArticleRepository.updateArticle(dbParam);
+		bbsArticleRepository.update(dbParam);
 	}
 
 }
