@@ -14,9 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,23 +39,44 @@ public class BbsArticleApiControllerTest {
 	@WithMockUser(value = "spring")
 	@Test
 	public void 권한있고_게시글목록_성공() throws Exception {
+		MultiValueMap<String, String> mvcParam = new LinkedMultiValueMap<>();
 
-		Sort sort = new Sort(Sort.Direction.DESC, "articleId");
-		Pageable pageable = PageRequest.of(1, CmnConst.RECORD_PER_COUNT, sort);
+		GIVEN:
+		{
+			int pageNumber = 1;
 
-		List<BbsArticleEntity> bbsArticleEntityList = new ArrayList<>();
-		bbsArticleEntityList.add(BbsArticleEntity.builder().title("테스트").build());
+			mvcParam.add("pageNumber", String.valueOf(pageNumber));
 
-		Page<BbsArticleEntity> impl = new PageImpl<>(bbsArticleEntityList);
+			Sort sort = new Sort(Sort.Direction.DESC, "articleId");
+			Pageable pageable = PageRequest.of(pageNumber, CmnConst.RECORD_PER_COUNT, sort);
+			List<BbsArticleEntity> bbsArticleEntityList = new ArrayList<>();
+			bbsArticleEntityList.add(BbsArticleEntity.builder().title("테스트").build());
 
-		given(bbsArticleApiService.page(pageable)).willReturn(impl);
+			Page<BbsArticleEntity> impl = new PageImpl<>(bbsArticleEntityList);
 
-		mvc.perform(
-			//WHEN(Execution)
-			get("/api/bbs/v1/article").param("pageNumber", "1").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+			given(bbsArticleApiService.page(pageable)).willReturn(impl);
+		}
 
-			//THEN(Verification)
-			.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+		ResultActions result;
+		WHEN:
+		{
+			//@formatter:off
+			result = mvc.perform(
+				get("/api/bbs/v1/article")
+					.params(mvcParam)
+					.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+			);
+			//@formatter:on
+		}
+
+		THEN:
+		{
+			//@formatter:off
+			result
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+			//@formatter:on
+		}
 	}
 
 }
