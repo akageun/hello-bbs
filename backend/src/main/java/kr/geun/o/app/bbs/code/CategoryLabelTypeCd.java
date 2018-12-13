@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum CategoryLabelType {
+public enum CategoryLabelTypeCd {
 	//@formatter:off
 	BADGE_PRIMARY("badge-primary"),
 	BADGE_SECONDARY("badge-secondary"),

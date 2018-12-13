@@ -35,7 +35,7 @@ public class BbsCategoryEntity {
 	private String name;
 
 	@Column
-//	@EnumValid(targetEnum = CategoryLabelType.class)
+//	@EnumValid(targetEnum = CategoryLabelTypeCd.class)
 	private String type; //bootstrap label color 넣은 곳
 
 	@Column
