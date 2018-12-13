@@ -1,5 +1,7 @@
 package kr.geun.o.app.bbs.dto;
 
+import kr.geun.o.app.bbs.code.ArticleStatusCd;
+import kr.geun.o.common.valid.EnumValid;
 import lombok.Builder;
 import lombok.Data;
 
@@ -32,8 +34,7 @@ public class BbsArticleDTO {
 	@Builder
 	public static class Add {
 
-		//TODO : status 체크
-		@NotBlank
+		@EnumValid(targetEnum = ArticleStatusCd.class)
 		private String statusCd;
 
 		//TODO : 길이체크
@@ -55,8 +56,7 @@ public class BbsArticleDTO {
 		@Min(0)
 		public Long articleId;
 
-		//TODO : status 체크
-		@NotBlank
+		@EnumValid(targetEnum = ArticleStatusCd.class)
 		private String statusCd;
 
 		//TODO : 길이체크

@@ -3,6 +3,8 @@ package kr.geun.o.app.bbs.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import kr.geun.o.app.bbs.code.ArticleStatusCd;
+import kr.geun.o.common.valid.EnumValid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
