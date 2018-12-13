@@ -3,7 +3,7 @@ package kr.geun.o.common.constants;
 /**
  * 권한 코드
  *
- * @author 김형근
+ * @author akageun
  */
 public enum AuthorityCd {
 	ADMIN, USER;
