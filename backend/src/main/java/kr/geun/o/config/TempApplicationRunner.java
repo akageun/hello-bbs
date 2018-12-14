@@ -1,5 +1,6 @@
 package kr.geun.o.config;
 
+import kr.geun.o.app.bbs.code.ArticleStatusCd;
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.model.BbsCategoryEntity;
 import kr.geun.o.app.bbs.repository.BbsArticleRepository;
@@ -64,7 +65,8 @@ public class TempApplicationRunner implements CommandLineRunner {
 		List<BbsCategoryEntity> bbsCategoryEntities = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
-			bbsCategoryEntities.add(BbsCategoryEntity.builder().name("테스트 " + i).type("success").createdUserId(userId).updatedUserId(userId).build());
+			bbsCategoryEntities.add(
+				BbsCategoryEntity.builder().name("테스트 " + i).type(ArticleStatusCd.NORMAL.name()).createdUserId(userId).updatedUserId(userId).build());
 		}
 
 		List<BbsCategoryEntity> bbsCategoryEntities1 = bbsCategoryRepository.saveAll(bbsCategoryEntities);
