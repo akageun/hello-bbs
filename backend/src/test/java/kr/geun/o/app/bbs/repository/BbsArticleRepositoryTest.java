@@ -1,5 +1,6 @@
 package kr.geun.o.app.bbs.repository;
 
+import kr.geun.o.app.bbs.code.ArticleStatusCd;
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.model.BbsCategoryEntity;
 import org.junit.Test;
@@ -25,21 +26,20 @@ public class BbsArticleRepositoryTest {
 
 	@Test
 	public void 글저장_테스트_성공() {
+		//TODO : 제거해야함.
 		BbsCategoryEntity bbsCategoryEntity = bbsCategoryRepository.save(BbsCategoryEntity.builder().name("테스트").type("label").build());
 
 		final String title = "Sample Title.";
 		final String content = "# Test Content ";
-		final String statusCd = "NORMARL";
 		final String userId = "akageun";
 
 		//@formatter:off
 		BbsArticleEntity mockArticleEntity = BbsArticleEntity
 			.builder()
-				//.articleId(articleId)
 				.content(content)
 				.title(title)
 				.categoryId(bbsCategoryEntity.getCategoryId())
-				.statusCd(statusCd)
+				.statusCd(ArticleStatusCd.NORMAL.name())
 				.createdUserId(userId)
 				.updatedUserId(userId)
 			.build();
