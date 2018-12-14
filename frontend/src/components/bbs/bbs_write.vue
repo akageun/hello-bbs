@@ -87,11 +87,9 @@
         const content = this.simpleMde.value();
         const categoryId = document.getElementById('category_id').value;
         const statusCd = "NORMAL";
-        console.log('content : ',content);
 
         this.$store.dispatch('ADD_BBS_ARTICLE', {title, content, statusCd, categoryId})
           .then((data) => {
-            console.log(data);
             if (data.status === 200) {
               router.push('/')
             }
