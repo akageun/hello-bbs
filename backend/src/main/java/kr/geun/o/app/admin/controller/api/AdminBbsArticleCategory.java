@@ -4,7 +4,7 @@ import kr.geun.o.app.admin.dto.AdminBbsArticleCategoryDTO;
 import kr.geun.o.app.bbs.model.BbsCategoryEntity;
 import kr.geun.o.app.bbs.service.BbsCategoryApiService;
 import kr.geun.o.common.constants.CmnConst;
-import kr.geun.o.common.pagination.PaginationInfo;
+import kr.geun.o.common.controller.BaseController;
 import kr.geun.o.common.response.ResData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/admin/bbs/article")
-public class AdminBbsArticleCategory {
+public class AdminBbsArticleCategory extends BaseController {
 
 	@Autowired
 	private BbsCategoryApiService bbsCategoryApiService;
@@ -50,24 +50,16 @@ public class AdminBbsArticleCategory {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
 		}
 
-		Sort sort = new Sort(Sort.Direction.DESC, "articleId");
+		Sort sort = new Sort(Sort.Direction.DESC, "categoryId");
 		Pageable pageable = PageRequest.of(param.getPageNumber(), CmnConst.RECORD_PER_COUNT, sort);
 
 		Page<BbsCategoryEntity> resultPage = bbsCategoryApiService.page(pageable);
 
-		//@formatter:off
-        PaginationInfo paginationInfo = new PaginationInfo(
-            resultPage.getNumber(),
-            resultPage.getNumberOfElements(),
-            resultPage.getTotalElements(),
-			resultPage.getTotalPages(),
-            5);
-        //@formatter:on
-
 		Map<String, Object> rtnMap = new HashMap<>();
 
 		rtnMap.put("resultList", resultPage.getContent());
-		rtnMap.put("pagination", paginationInfo);
+
+		setPagination(rtnMap, resultPage, 5);
 
 		return ResponseEntity.ok(ResData.of(rtnMap, "성공"));
 	}

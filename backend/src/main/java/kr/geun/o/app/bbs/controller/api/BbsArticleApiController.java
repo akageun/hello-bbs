@@ -4,7 +4,7 @@ import kr.geun.o.app.bbs.dto.BbsArticleDTO;
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.service.BbsArticleApiService;
 import kr.geun.o.common.constants.CmnConst;
-import kr.geun.o.common.pagination.PaginationInfo;
+import kr.geun.o.common.controller.BaseController;
 import kr.geun.o.common.response.ResData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/bbs/v1")
-public class BbsArticleApiController {
+public class BbsArticleApiController extends BaseController {
 
 	@Autowired
 	private BbsArticleApiService bbsArticleApiService;
@@ -50,19 +50,11 @@ public class BbsArticleApiController {
 
 		Page<BbsArticleEntity> resultPage = bbsArticleApiService.page(pageable);
 
-		//@formatter:off
-        PaginationInfo paginationInfo = new PaginationInfo(
-            resultPage.getNumber(),
-            resultPage.getNumberOfElements(),
-            resultPage.getTotalElements(),
-			resultPage.getTotalPages(),
-            5);
-        //@formatter:on
-
 		Map<String, Object> rtnMap = new HashMap<>();
 
 		rtnMap.put("resultList", resultPage.getContent());
-		rtnMap.put("pagination", paginationInfo);
+
+		setPagination(rtnMap, resultPage, 5);
 
 		return ResponseEntity.ok().body(ResData.of(rtnMap, "성공"));
 	}
