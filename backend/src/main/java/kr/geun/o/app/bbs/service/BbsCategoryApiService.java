@@ -30,6 +30,25 @@ public interface BbsCategoryApiService {
 	BbsCategoryEntity get(Long categoryId);
 
 	/**
+	 * 추가
+	 *
+	 * @param type
+	 * @param name
+	 * @return
+	 */
+	void add(String type, String name);
+
+	/**
+	 * 수정
+	 *
+	 * @param categoryId
+	 * @param type
+	 * @param name
+	 * @return
+	 */
+	void modify(Long categoryId, String type, String name);
+
+	/**
 	 * 검색
 	 *
 	 * @param keyword

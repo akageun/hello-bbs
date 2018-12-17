@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author akageun
  */
-public interface BbsCategoryRepository extends JpaRepository<BbsCategoryEntity, Long> {
+public interface BbsCategoryRepository extends JpaRepository<BbsCategoryEntity, Long>, BbsCategoryRepoDsl {
 
 	/**
 	 * 내용 검색

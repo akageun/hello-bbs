@@ -31,11 +31,9 @@ public class BbsCategoryEntity {
 	private Long categoryId;
 
 	@Column(length = 512)
-	@Size(max = 512, min = 1)
 	private String name;
 
 	@Column
-//	@EnumValid(targetEnum = CategoryLabelTypeCd.class)
 	private String type; //bootstrap label color 넣은 곳
 
 	@Column

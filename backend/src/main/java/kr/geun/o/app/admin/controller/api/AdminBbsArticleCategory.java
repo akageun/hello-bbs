@@ -15,9 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -83,5 +81,46 @@ public class AdminBbsArticleCategory extends BaseController {
 		}
 
 		return ResponseEntity.ok().body(ResData.of(dbInfo, "성공"));
+	}
+
+	/**
+	 * 카테고리 추가
+	 *
+	 * @param param
+	 * @param result
+	 * @return
+	 */
+	@PostMapping("/category")
+	public ResponseEntity<ResData> addCategory(@Valid AdminBbsArticleCategoryDTO.Add param, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().body(ResData.of(result));
+		}
+
+		bbsCategoryApiService.add(param.getType(), param.getName());
+
+		return CmnConst.RES;
+	}
+
+	/**
+	 * 글 수정
+	 *
+	 * @param param
+	 * @param result
+	 * @return
+	 */
+	@PutMapping("/category/{categoryId}")
+	public ResponseEntity<ResData> modifyArticle(@Valid AdminBbsArticleCategoryDTO.Modify param, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().body(ResData.of(result));
+		}
+
+		BbsCategoryEntity dbInfo = bbsCategoryApiService.get(param.getCategoryId());
+		if (dbInfo == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResData.of("데이터를 찾을 수 없습니다."));
+		}
+
+		bbsCategoryApiService.modify(param.getCategoryId(), param.getType(), param.getName());
+
+		return CmnConst.RES;
 	}
 }
