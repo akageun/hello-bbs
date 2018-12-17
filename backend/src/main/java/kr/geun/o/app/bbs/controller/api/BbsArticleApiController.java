@@ -111,6 +111,11 @@ public class BbsArticleApiController extends BaseController {
 			return ResponseEntity.badRequest().body(ResData.of(result));
 		}
 
+		BbsArticleEntity dbInfo = bbsArticleApiService.get(param.getArticleId());
+		if (dbInfo == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResData.of("데이터를 찾을 수 없습니다."));
+		}
+
 		bbsArticleApiService.modifyArticle(param.getArticleId(), param.getTitle(), param.getContent(), param.getStatusCd(), param.getCategoryId());
 
 		return CmnConst.RES;
