@@ -104,7 +104,7 @@ public class UserApiServiceTest {
 
 		WHEN:
 		{
-			userApiService.preCreateUser(mockUserId, mockPassWd, "");
+			userApiService.preCreateUser(mockUserId, mockPassWd, mockPassWd);
 		}
 	}
 

@@ -1,7 +1,7 @@
 package kr.geun.o.app.bbs.code;
 
 /**
- *
+ * 글상태값
  *
  * @author akageun
  */
@@ -12,5 +12,4 @@ public enum ArticleStatusCd {
 	BLOCK,
 	DELETE
 	//@formatter:on
-	;
-}
+	;}
