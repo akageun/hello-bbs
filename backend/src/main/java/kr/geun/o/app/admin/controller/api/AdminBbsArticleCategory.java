@@ -102,7 +102,7 @@ public class AdminBbsArticleCategory extends BaseController {
 	}
 
 	/**
-	 * 글 수정
+	 * 카테고리 수정
 	 *
 	 * @param param
 	 * @param result

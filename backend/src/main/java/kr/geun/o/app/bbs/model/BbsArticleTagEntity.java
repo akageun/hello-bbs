@@ -3,6 +3,7 @@ package kr.geun.o.app.bbs.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import kr.geun.o.common.constants.CmnConst;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,7 +47,7 @@ public class BbsArticleTagEntity {
 	/**
 	 * 생성일시
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = CmnConst.YMDHMS_READONLY)
 	@CreationTimestamp
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
@@ -54,7 +55,7 @@ public class BbsArticleTagEntity {
 	/**
 	 * 수정일시
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = CmnConst.YMDHMS_READONLY)
 	@UpdateTimestamp
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;

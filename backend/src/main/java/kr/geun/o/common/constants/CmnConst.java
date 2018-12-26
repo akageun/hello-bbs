@@ -13,4 +13,6 @@ public class CmnConst {
 	public static final int RECORD_PER_COUNT = 10;
 
 	public static final ResponseEntity<ResData> RES = ResponseEntity.ok().body(ResData.of("성공"));
+
+	public static final String YMDHMS_READONLY = "yyyy-MM-dd HH:mm:ss";
 }

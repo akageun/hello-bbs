@@ -12,4 +12,5 @@ public enum ArticleStatusCd {
 	BLOCK,
 	DELETE
 	//@formatter:on
-	;}
+	;
+}
