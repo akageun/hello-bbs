@@ -3,7 +3,7 @@ package kr.geun.o.app.bbs.service.impl;
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.repository.BbsArticleRepository;
 import kr.geun.o.app.bbs.service.BbsArticleApiService;
-import kr.geun.o.common.utils.SecUtils;
+import kr.geun.o.core.utils.SecUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

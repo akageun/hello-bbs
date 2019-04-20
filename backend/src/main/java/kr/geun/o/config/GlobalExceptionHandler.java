@@ -1,6 +1,6 @@
 package kr.geun.o.config;
 
-import kr.geun.o.common.response.ResData;
+import kr.geun.o.core.response.ResData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;

@@ -1,7 +1,7 @@
 package kr.geun.o.app.bbs.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import kr.geun.o.common.constants.CmnConst;
+import kr.geun.o.core.constants.CmnConst;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**

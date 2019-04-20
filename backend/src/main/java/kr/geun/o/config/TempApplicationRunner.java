@@ -9,7 +9,7 @@ import kr.geun.o.app.user.model.UserAuthEntity;
 import kr.geun.o.app.user.model.UserEntity;
 import kr.geun.o.app.user.repository.UserAuthRepository;
 import kr.geun.o.app.user.repository.UserRepository;
-import kr.geun.o.common.constants.AuthorityCd;
+import kr.geun.o.core.constants.AuthorityCd;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;

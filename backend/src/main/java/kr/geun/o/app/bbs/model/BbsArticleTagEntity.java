@@ -1,9 +1,7 @@
 package kr.geun.o.app.bbs.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import kr.geun.o.common.constants.CmnConst;
+import kr.geun.o.core.constants.CmnConst;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
