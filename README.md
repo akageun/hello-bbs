@@ -18,3 +18,15 @@ Spring Boot And Vue.js 를 사용한 토이프로젝트
 - 마크다운 글쓰기/수정/상세보기
 - 카테고리 관리 및 추가
 - 태그 관리 및 추가
+
+
+## How to use
+#### Develop
+- frontend
+> cd frontend && npm run start
+
+- backend
+> mvn spring-boot:run
+
+- Admin account information
+> ID : test / PW : test
