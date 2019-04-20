@@ -1,18 +1,17 @@
 <template>
   <div>
     <gnb/>
-    <bbs_list/>
+    <bbsWrite/>
   </div>
 </template>
 
 <script>
   import gnb from 'SrcRoot/components/layouts/gnb'
-  import bbs_list from 'SrcRoot/components/bbs/bbs_list'
+  import bbsWrite from 'SrcRoot/components/bbs/write'
 
   export default {
     components: {
-      gnb,
-      bbs_list
+      gnb, bbsWrite
     }
   }
 </script>
@@ -20,4 +19,3 @@
 <style scoped>
 
 </style>
-

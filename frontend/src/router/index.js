@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from 'SrcRoot/components/Dashboard';
+
+import dashboard from 'SrcRoot/views/dashboard';
+import login from 'SrcRoot/views/user/login';
+
+import adminCategory from 'SrcRoot/views/admin/category'
+import adminUserManage from 'SrcRoot/views/admin/userManage'
+
+import bbsDetail from 'SrcRoot/views/bbs/detail'
+import bbsWrite from 'SrcRoot/views/bbs/write'
+import bbsModify from 'SrcRoot/views/bbs/modify'
 
 
-import login from 'SrcRoot/components/user/login';
-import bbs_detail from 'SrcRoot/components/bbs/bbs_detail'
-import bbs_write from 'SrcRoot/components/bbs/bbs_write'
-import bbs_modify from 'SrcRoot/components/bbs/bbs_modify'
-
-import admin_category from 'SrcRoot/components/admin/category'
-import admin_user_manage from 'SrcRoot/components/admin/userManage'
-
-import not_found from 'SrcRoot/components/error/not_found'
+import not_found from 'SrcRoot/views/error/not_found'
 import store from '../store'
 
 Vue.use(Router);
@@ -38,7 +39,7 @@ export default new Router({
     {
       path: '/',
       name: 'Dashboard',
-      component: Dashboard,
+      component: dashboard,
       beforeEnter: requireAuth()
     },
     {
@@ -48,32 +49,32 @@ export default new Router({
     },
     {
       path: '/bbs/write',
-      name: 'bbs_write',
-      component: bbs_write,
+      name: 'bbsWrite',
+      component: bbsWrite,
       beforeEnter: requireAuth()
     },
     {
       path: '/bbs/write/:articleId',
       name: 'bbs_modify',
-      component: bbs_modify,
+      component: bbsModify,
       beforeEnter: requireAuth()
     },
     {
       path: '/bbs/:articleId',
-      name: 'bbs_detail',
-      component: bbs_detail,
+      name: 'detail',
+      component: bbsDetail,
       beforeEnter: requireAuth()
     },
     {
       path: '/admin/category',
-      name: 'admin_category',
-      component: admin_category,
+      name: 'adminCategory',
+      component: adminCategory,
       beforeEnter: requireAuthAdmin()
     },
     {
       path: '/admin/userManage',
-      name: 'admin_user_manage',
-      component: admin_user_manage,
+      name: 'adminUserManage',
+      component: adminUserManage,
       beforeEnter: requireAuthAdmin()
     },
     {

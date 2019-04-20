@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div class="container">
-      404 : NOT FOUND
-    </div>
+  <div class="container">
+    404 : NOT FOUND
   </div>
 </template>
 

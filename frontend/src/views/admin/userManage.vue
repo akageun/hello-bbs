@@ -1,8 +1,6 @@
 <template>
   <div>
     <gnb/>
-
-
   </div>
 </template>
 
@@ -10,9 +8,9 @@
   import gnb from 'SrcRoot/components/layouts/gnb'
 
   export default {
-    name: "category",
+    name: "userManage",
     components: {
-      gnb,
+      gnb
     }
   }
 </script>

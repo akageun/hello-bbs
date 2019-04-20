@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <gnb/>
-    <div class="container-fluid">
-      <div class="row mb-3">
-        <div class="col-lg-9 col-md-12">
-          <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요."/>
-        </div>
-        <div class="col-lg-3 col-md-12">
-          <select id="category_id" name="categoryId" class="form-control select2-multiple tmpSelect2">
-          </select>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-3">
+      <div class="col-lg-9 col-md-12">
+        <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요."/>
       </div>
-      <div class="row">
-        <div class="col">
-          <textarea id="bbs_write_area"></textarea>
-        </div>
+      <div class="col-lg-3 col-md-12">
+        <select id="category_id" name="categoryId" class="form-control select2-multiple tmpSelect2">
+        </select>
       </div>
-      <div class="row">
-        <div class="col">
-          <button type="button" class="btn btn-block btn-outline-success" @click="saveData">
-            SAVE
-          </button>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <textarea id="bbs_write_area"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-block btn-outline-success" @click="saveData">
+          SAVE
+        </button>
       </div>
     </div>
   </div>
@@ -29,7 +26,6 @@
 
 <script>
   import router from 'SrcRoot/router'
-  import gnb from 'SrcRoot/components/layouts/gnb'
   import $ from 'jquery'
 
   import SimpleMDE from 'simplemde';
@@ -37,7 +33,6 @@
 
   export default {
     name: "bbs_modify",
-    components: {gnb},
     data() {
       return {
         simpleMde: null,

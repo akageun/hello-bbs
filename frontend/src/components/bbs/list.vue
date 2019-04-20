@@ -33,17 +33,17 @@
       </div>
     </div>
 
-    <bbs_pagination :propsPagination="pagination" :pageRange="pageRange"/>
+    <pagination :propsPagination="pagination" :pageRange="pageRange"/>
   </div>
 </template>
 
 <script>
-  import Bbs_pagination from "SrcRoot/components/bbs/bbs_pagination";
+  import pagination from "SrcRoot/components/bbs/pagination";
 
   export default {
     name: "bbs_list",
     components: {
-      Bbs_pagination
+      pagination
     },
     data() {
       return {
