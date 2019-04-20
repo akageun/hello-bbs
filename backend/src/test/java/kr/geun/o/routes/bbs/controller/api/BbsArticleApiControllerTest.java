@@ -18,7 +18,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,56 +28,56 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = { BbsArticleApiController.class })
+@WebMvcTest(value = {BbsArticleApiController.class})
 public class BbsArticleApiControllerTest {
 
-	@Autowired
-	private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-	@MockBean
-	private BbsArticleApiService bbsArticleApiService;
+    @MockBean
+    private BbsArticleApiService bbsArticleApiService;
 
-	@WithMockUser(value = "spring")
-	@Test
-	public void 권한있고_게시글목록_성공() throws Exception {
-		MultiValueMap<String, String> mvcParam = new LinkedMultiValueMap<>();
+    @WithMockUser(value = "spring")
+    @Test
+    public void 권한있고_게시글목록_성공() throws Exception {
+        MultiValueMap<String, String> mvcParam = new LinkedMultiValueMap<>();
 
-		GIVEN:
-		{
-			int pageNumber = 1;
+        GIVEN:
+        {
+            int pageNumber = 1;
 
-			mvcParam.add("pageNumber", String.valueOf(pageNumber));
+            mvcParam.add("pageNumber", String.valueOf(pageNumber));
 
-			Sort sort = new Sort(Sort.Direction.DESC, "articleId");
-			Pageable pageable = PageRequest.of(pageNumber, CmnConst.RECORD_PER_COUNT, sort);
-			List<BbsArticleEntity> bbsArticleEntityList = new ArrayList<>();
-			bbsArticleEntityList.add(BbsArticleEntity.builder().title("테스트").build());
+            Sort sort = new Sort(Sort.Direction.DESC, "articleId");
+            Pageable pageable = PageRequest.of(pageNumber, CmnConst.RECORD_PER_COUNT, sort);
+            List<BbsArticleEntity> bbsArticleEntityList = new ArrayList<>();
+            bbsArticleEntityList.add(BbsArticleEntity.builder().title("테스트").build());
 
-			Page<BbsArticleEntity> impl = new PageImpl<>(bbsArticleEntityList);
+            Page<BbsArticleEntity> impl = new PageImpl<>(bbsArticleEntityList);
 
-			given(bbsArticleApiService.page(pageable)).willReturn(impl);
-		}
+            given(bbsArticleApiService.page(pageable)).willReturn(impl);
+        }
 
-		ResultActions result;
-		WHEN:
-		{
-			//@formatter:off
+        ResultActions result;
+        WHEN:
+        {
+            //@formatter:off
 			result = mvc.perform(
 				get("/api/bbs/v1/article")
 					.params(mvcParam)
 					.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
 			);
 			//@formatter:on
-		}
+        }
 
-		THEN:
-		{
-			//@formatter:off
+        THEN:
+        {
+            //@formatter:off
 			result
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 			//@formatter:on
-		}
-	}
+        }
+    }
 
 }
