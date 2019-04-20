@@ -1,9 +1,12 @@
 package kr.geun.o.app.bbs.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 /**
- *
- *
  * @author akageun
  */
-public interface ReplyApiService {
+@Slf4j
+@Service
+public class ReplyApiService {
 }
