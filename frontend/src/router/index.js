@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from '@/components/Dashboard';
+import Dashboard from 'SrcRoot/components/Dashboard';
 
 
-import login from '@/components/user/login';
-import bbs_detail from '@/components/bbs/bbs_detail'
-import bbs_write from '@/components/bbs/bbs_write'
-import bbs_modify from '@/components/bbs/bbs_modify'
+import login from 'SrcRoot/components/user/login';
+import bbs_detail from 'SrcRoot/components/bbs/bbs_detail'
+import bbs_write from 'SrcRoot/components/bbs/bbs_write'
+import bbs_modify from 'SrcRoot/components/bbs/bbs_modify'
 
-import admin_category from '@/components/admin/category'
-import admin_user_manage from '@/components/admin/userManage'
+import admin_category from 'SrcRoot/components/admin/category'
+import admin_user_manage from 'SrcRoot/components/admin/userManage'
 
-import not_found from '@/components/error/not_found'
+import not_found from 'SrcRoot/components/error/not_found'
 import store from '../store'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const requireAuth = () => (to, from, next) => {
   if (store.getters.isAuthenticated) {

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import gnb from '@/components/layouts/gnb'
+  import gnb from 'SrcRoot/components/layouts/gnb'
   import SimpleMDE from 'simplemde';
   import 'simplemde/dist/simplemde.min.css'
 

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import signup from '@/components/user/signup';
+  import signup from 'SrcRoot/components/user/signup';
 
   export default {
     name: "login",

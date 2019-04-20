@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import gnb from '@/components/layouts/gnb'
+  import gnb from 'SrcRoot/components/layouts/gnb'
 
   export default {
     name: "category",

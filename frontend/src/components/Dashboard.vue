@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import gnb from '@/components/layouts/gnb'
-  import bbs_list from '@/components/bbs/bbs_list'
+  import gnb from 'SrcRoot/components/layouts/gnb'
+  import bbs_list from 'SrcRoot/components/bbs/bbs_list'
 
   export default {
     components: {

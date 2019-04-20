@@ -28,8 +28,8 @@
 </template>
 
 <script>
-  import router from '@/router'
-  import gnb from '@/components/layouts/gnb'
+  import router from 'SrcRoot/router'
+  import gnb from 'SrcRoot/components/layouts/gnb'
   import $ from 'jquery'
 
   import SimpleMDE from 'simplemde';

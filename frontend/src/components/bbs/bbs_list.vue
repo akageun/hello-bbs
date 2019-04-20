@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import Bbs_pagination from "@/components/bbs/bbs_pagination";
+  import Bbs_pagination from "SrcRoot/components/bbs/bbs_pagination";
 
   export default {
     name: "bbs_list",
