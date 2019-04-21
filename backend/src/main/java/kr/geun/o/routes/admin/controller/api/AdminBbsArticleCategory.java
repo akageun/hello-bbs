@@ -1,5 +1,7 @@
 package kr.geun.o.routes.admin.controller.api;
 
+import kr.geun.o.core.exception.BaseException;
+import kr.geun.o.core.utils.CmnUtils;
 import kr.geun.o.routes.admin.dto.AdminBbsArticleCategoryDTO;
 import kr.geun.o.app.bbs.model.BbsCategoryEntity;
 import kr.geun.o.app.bbs.service.BbsCategoryApiService;
@@ -72,7 +74,7 @@ public class AdminBbsArticleCategory extends BaseController {
 	@GetMapping("/category/{categoryId}")
 	public ResponseEntity<ResData> getOne(@Valid AdminBbsArticleCategoryDTO.Get param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.badRequest().body(ResData.of(result));
+			throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
 		BbsCategoryEntity dbInfo = bbsCategoryApiService.get(param.getCategoryId());
@@ -93,7 +95,7 @@ public class AdminBbsArticleCategory extends BaseController {
 	@PostMapping("/category")
 	public ResponseEntity<ResData> addCategory(@Valid AdminBbsArticleCategoryDTO.Add param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.badRequest().body(ResData.of(result));
+			throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
 		bbsCategoryApiService.add(param.getType(), param.getName());
@@ -111,7 +113,7 @@ public class AdminBbsArticleCategory extends BaseController {
 	@PutMapping("/category/{categoryId}")
 	public ResponseEntity<ResData> modifyArticle(@Valid AdminBbsArticleCategoryDTO.Modify param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.badRequest().body(ResData.of(result));
+			throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
 		BbsCategoryEntity dbInfo = bbsCategoryApiService.get(param.getCategoryId());

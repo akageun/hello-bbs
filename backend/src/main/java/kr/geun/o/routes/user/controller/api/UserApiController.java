@@ -1,7 +1,9 @@
 package kr.geun.o.routes.user.controller.api;
 
 import kr.geun.o.app.user.service.UserApiService;
+import kr.geun.o.core.exception.BaseException;
 import kr.geun.o.core.response.ResData;
+import kr.geun.o.core.utils.CmnUtils;
 import kr.geun.o.routes.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class UserApiController {
             BindingResult result
     ) {
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(ResData.of(result));
+            throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
         }
 
         try {
@@ -72,7 +74,7 @@ public class UserApiController {
     ) {
 
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(ResData.of(result));
+            throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
         }
 
         try {

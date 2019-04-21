@@ -1,5 +1,7 @@
 package kr.geun.o.routes.admin.controller.api;
 
+import kr.geun.o.core.exception.BaseException;
+import kr.geun.o.core.utils.CmnUtils;
 import kr.geun.o.routes.admin.dto.AdminBbsArticleTagDTO;
 import kr.geun.o.core.response.ResData;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +36,7 @@ public class AdminBbsArticleTag {
 	@GetMapping("/tag")
 	public ResponseEntity<ResData> tagPage(@Valid AdminBbsArticleTagDTO.Page param, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResData.of(result));
+			throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
 		}
 
 		return ResponseEntity.ok(ResData.of("성공"));
