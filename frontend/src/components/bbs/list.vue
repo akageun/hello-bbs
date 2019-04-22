@@ -11,19 +11,19 @@
           </span>
         </h4>
         <ul class="timeline">
-          <li v-for="(data, index) in resultList">
+          <li v-for="(data, index) in resultList" class="border-bottom pb-1">
             <span class="badge badge-primary">{{data.bbsCategoryEntity.name}}</span>
             <router-link :to="{path: '/bbs/'+ data.articleId}">{{data.title}}</router-link>
 
             <span href="#" class="float-right">{{data.createdAt}}</span>
-            <p class="border-bottom mb-1 pt-2">
+            <p class=" mb-1 pt-2">
               {{data.content | liveSubstr}}
             </p>
             <p>
               <span class="float-right">
-                {{data.createdUserId}}
-              |
-              <router-link :to="{path: '/bbs/write/'+ data.articleId}">Modify</router-link>
+                {{data.createdUserId}} |
+                <router-link :to="{path: '/bbs/write/'+ data.articleId}"
+                             class="btn btn-sm btn-warning">Modify</router-link>
               </span>
             </p>
             <div class="clearfix"></div>
@@ -54,7 +54,6 @@
     },
     created() {
       this.bbsList();
-
     },
 
     filters: {
@@ -81,7 +80,7 @@
             }
           })
           .catch(({message}) => {
-
+            console.log("message : ", message);
           });
       }
     }

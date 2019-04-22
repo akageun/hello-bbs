@@ -88,7 +88,6 @@ export default new Vuex.Store({
 
       return axios.post('/api/user/v1/signup', form)
         .then(({data}) => {
-          console.log('success : ', data);
           return data;
         }).catch(({data}) => {
           console.log("에러 ", data);
@@ -116,10 +115,10 @@ export default new Vuex.Store({
 
     GET_BBS({commit}, {articleId}) {
 
-      return axios.get('/api/bbs/v1/article/' + articleId, getParamsWithAuth())
+      return axios.get(`/api/bbs/v1/article/${articleId}`, getParamsWithAuth())
         .then(data => {
-          console.log(data.data.data);
           return data;
+
         }).catch(error => {
           isExpiredTokenCheck(error);
         });
@@ -132,10 +131,10 @@ export default new Vuex.Store({
       form.append('statusCd', statusCd);
       form.append('categoryId', categoryId);
 
-      return axios.post('/api/bbs/v1/article', form, getParamsWithAuth())
+      return axios.post(`/api/bbs/v1/article`, form, getParamsWithAuth())
         .then(data => {
-          console.log('data : ', data);
           return data;
+
         }).catch(error => {
           isExpiredTokenCheck(error);
         });
@@ -147,9 +146,10 @@ export default new Vuex.Store({
       form.append('statusCd', statusCd);
       form.append('categoryId', categoryId);
 
-      return axios.put('/api/bbs/v1/article/' + articleId, form, getParamsWithAuth())
+      return axios.put(`/api/bbs/v1/article/${articleId}`, form, getParamsWithAuth())
         .then(data => {
           return data;
+
         }).catch(error => {
           isExpiredTokenCheck(error);
         });

@@ -9,6 +9,7 @@ import kr.geun.o.core.response.ResData;
 import kr.geun.o.core.utils.CmnUtils;
 import kr.geun.o.core.utils.SecUtils;
 import kr.geun.o.routes.bbs.dto.BbsArticleDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,7 @@ import java.util.Map;
  *
  * @author akageun
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/bbs/v1")
 public class BbsArticleApiController extends BaseController {
@@ -107,7 +109,26 @@ public class BbsArticleApiController extends BaseController {
             throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
         }
 
-        bbsArticleApiService.addArticle(param.getTitle(), param.getContent(), param.getStatusCd(), param.getCategoryId());
+        String userId = SecUtils.getUserName();
+
+        BbsArticleEntity dbParam = BbsArticleEntity.builder()
+                .title(param.getTitle())
+                .content(param.getContent())
+                .statusCd(param.getStatusCd())
+                .categoryId(param.getCategoryId())
+                .createdUserId(userId)
+                .updatedUserId(userId)
+                .build();
+
+        try {
+            bbsArticleApiService.preAddArticle(dbParam); //전처리
+
+            bbsArticleApiService.addArticle(dbParam);
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+
 
         return CmnConst.RES;
     }
@@ -129,19 +150,26 @@ public class BbsArticleApiController extends BaseController {
             throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
         }
 
-        BbsArticleEntity dbInfo = bbsArticleApiService.get(param.getArticleId());
-        if (dbInfo == null) {
-            throw new BaseException("데이터를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
-        }
-
         String userId = SecUtils.getUserName();
 
-        if (StringUtils.equals(dbInfo.getCreatedUserId(), userId) == false) {
-            throw new BaseException("작성자만 글을 수정할 수 있습니다.", HttpStatus.BAD_REQUEST);
+        BbsArticleEntity dbParam = BbsArticleEntity.builder()
+                .articleId(param.getArticleId())
+                .title(param.getTitle())
+                .content(param.getContent())
+                .statusCd(param.getStatusCd())
+                .categoryId(param.getCategoryId())
+                .createdUserId(userId)
+                .updatedUserId(userId)
+                .build();
+
+        try {
+            bbsArticleApiService.preModifyArticle(dbParam);
+            bbsArticleApiService.modifyArticle(dbParam);
+
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
-
-
-        bbsArticleApiService.modifyArticle(param.getArticleId(), param.getTitle(), param.getContent(), param.getStatusCd(), param.getCategoryId());
 
         return CmnConst.RES;
     }
