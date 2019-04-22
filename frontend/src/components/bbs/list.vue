@@ -41,7 +41,7 @@
   import pagination from "SrcRoot/components/bbs/pagination";
 
   export default {
-    name: "bbs_list",
+    name: "bbsList",
     components: {
       pagination
     },
