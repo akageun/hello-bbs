@@ -1,7 +1,6 @@
 package kr.geun.o.routes.bbs.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 /**
  * 카테고리 DTO
@@ -10,8 +9,10 @@ import lombok.Data;
  */
 public class BbsCategoryDTO {
 
-	@Data
+	@Getter
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.NONE)
 	public static class Search {
 		private String keyword;
 	}

@@ -2,10 +2,7 @@ package kr.geun.o.app.bbs.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import kr.geun.o.core.constants.CmnConst;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
  *
  * @author akageun
  */
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -1,7 +1,6 @@
 package kr.geun.o.routes.admin.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 
@@ -12,8 +11,10 @@ import javax.validation.constraints.Min;
  */
 public class AdminBbsArticleTagDTO {
 
-	@Data
+	@Getter
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.NONE)
 	public static class Page {
 		@Min(0)
 		private int pageNumber;

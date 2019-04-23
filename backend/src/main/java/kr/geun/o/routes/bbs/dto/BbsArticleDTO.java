@@ -2,8 +2,7 @@ package kr.geun.o.routes.bbs.dto;
 
 import kr.geun.o.app.bbs.code.ArticleStatusCd;
 import kr.geun.o.core.valid.EnumValid;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -15,59 +14,71 @@ import javax.validation.constraints.NotBlank;
  */
 public class BbsArticleDTO {
 
-	@Data
-	@Builder
-	public static class Page {
-		@Min(0)
-		private int pageNumber;
-	}
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.NONE)
+    public static class Page {
+        @Min(0)
+        private int pageNumber;
+    }
 
-	@Data
-	@Builder
-	public static class Get {
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.NONE)
+    public static class Get {
 
-		@Min(0)
-		public Long articleId;
-	}
+        @Min(0)
+        @Setter
+        private Long articleId;
 
-	@Data
-	@Builder
-	public static class Add {
 
-		@EnumValid(targetEnum = ArticleStatusCd.class)
-		private String statusCd;
+    }
 
-		//TODO : 길이체크
-		@NotBlank
-		private String title;
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.NONE)
+    public static class Add {
 
-		//TODO : 길이체크
-		@NotBlank
-		private String content;
+        @EnumValid(targetEnum = ArticleStatusCd.class)
+        private String statusCd;
 
-		@Min(0)
-		private Long categoryId;
-	}
+        //TODO : 길이체크
+        @NotBlank
+        private String title;
 
-	@Data
-	@Builder
-	public static class Modify {
+        //TODO : 길이체크
+        @NotBlank
+        private String content;
 
-		@Min(0)
-		public Long articleId;
+        @Min(0)
+        private Long categoryId;
+    }
 
-		@EnumValid(targetEnum = ArticleStatusCd.class)
-		private String statusCd;
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.NONE)
+    public static class Modify {
 
-		//TODO : 길이체크
-		@NotBlank
-		private String title;
+        @Min(0)
+        @Setter
+        private Long articleId;
 
-		//TODO : 길이체크
-		@NotBlank
-		private String content;
+        @EnumValid(targetEnum = ArticleStatusCd.class)
+        private String statusCd;
 
-		@Min(0)
-		private Long categoryId;
-	}
+        //TODO : 길이체크
+        @NotBlank
+        private String title;
+
+        //TODO : 길이체크
+        @NotBlank
+        private String content;
+
+        @Min(0)
+        private Long categoryId;
+    }
 }

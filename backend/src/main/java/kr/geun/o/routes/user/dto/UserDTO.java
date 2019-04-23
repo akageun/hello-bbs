@@ -1,7 +1,6 @@
 package kr.geun.o.routes.user.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -15,8 +14,10 @@ public class UserDTO {
 	/**
 	 * 로그인
 	 */
-	@Data
+	@Getter
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	public static class Login {
 		@NotBlank
 		private String userId;
@@ -27,8 +28,10 @@ public class UserDTO {
 	/**
 	 * 회원가입
 	 */
-	@Data
+	@Getter
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	public static class SignUp {
 		@NotBlank
 		private String userId;

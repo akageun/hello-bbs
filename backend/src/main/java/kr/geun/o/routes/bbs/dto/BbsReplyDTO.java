@@ -1,7 +1,6 @@
 package kr.geun.o.routes.bbs.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 
@@ -12,18 +11,23 @@ import javax.validation.constraints.Min;
  */
 public class BbsReplyDTO {
 
-	@Data
+	@Getter
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.NONE)
 	public static class Page {
 		@Min(0)
 		private int pageNumber;
 	}
 
-	@Data
+	@Getter
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.NONE)
 	public static class Get {
 
 		@Min(0)
-		public Long replyId;
+		@Setter
+		private Long replyId;
 	}
 }
