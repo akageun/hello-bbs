@@ -5,6 +5,7 @@ import kr.geun.o.core.valid.EnumValid;
 import lombok.*;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -20,6 +21,7 @@ public class AdminBbsArticleCategoryDTO {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.NONE)
     public static class Page {
+        @NotNull
         @Min(0)
         private int pageNumber;
     }
@@ -29,6 +31,7 @@ public class AdminBbsArticleCategoryDTO {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.NONE)
     public static class Get {
+        @NotNull
         @Min(0)
         private Long categoryId;
     }
@@ -50,6 +53,7 @@ public class AdminBbsArticleCategoryDTO {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.NONE)
     public static class Modify {
+        @NotNull
         @Min(0)
         private Long categoryId;
 

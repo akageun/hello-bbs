@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 게시글 관련 DTO
@@ -19,6 +20,7 @@ public class BbsArticleDTO {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.NONE)
     public static class Page {
+        @NotNull
         @Min(0)
         private int pageNumber;
     }
@@ -30,6 +32,7 @@ public class BbsArticleDTO {
     public static class Get {
 
         @Min(0)
+        @NotNull
         @Setter
         private Long articleId;
 
@@ -54,6 +57,7 @@ public class BbsArticleDTO {
         private String content;
 
         @Min(0)
+        @NotNull
         private Long categoryId;
     }
 
@@ -64,6 +68,7 @@ public class BbsArticleDTO {
     public static class Modify {
 
         @Min(0)
+        @NotNull
         @Setter
         private Long articleId;
 
@@ -78,6 +83,7 @@ public class BbsArticleDTO {
         @NotBlank
         private String content;
 
+        @NotNull
         @Min(0)
         private Long categoryId;
     }

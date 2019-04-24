@@ -14,7 +14,16 @@ spring:
     platform: h2
     username: sa
     password:
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
+    hikari:
+      pool-name: hikari-cp
+      maximum-pool-size: 30
+      minimum-idle: 2
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
 
   jpa:
     show-sql: true
