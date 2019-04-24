@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE) //기본 생성자 사용못하도록 막음
+@NoArgsConstructor(access = AccessLevel.NONE) //기본 생성자 사용못하도록 막음
 public class PaginationInfo {
 
 	/**

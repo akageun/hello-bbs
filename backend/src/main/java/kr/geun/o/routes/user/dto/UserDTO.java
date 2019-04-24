@@ -17,7 +17,7 @@ public class UserDTO {
 	@Getter
 	@Builder
 	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PRIVATE)
+	@NoArgsConstructor(access = AccessLevel.NONE)
 	public static class Login {
 		@NotBlank
 		private String userId;
@@ -31,7 +31,7 @@ public class UserDTO {
 	@Getter
 	@Builder
 	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PRIVATE)
+	@NoArgsConstructor(access = AccessLevel.NONE)
 	public static class SignUp {
 		@NotBlank
 		private String userId;

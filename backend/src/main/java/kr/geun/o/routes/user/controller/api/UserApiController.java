@@ -51,7 +51,7 @@ public class UserApiController {
 
             String token = userApiService.generatorToken(userDetails);
 
-            return ResponseEntity.ok().body(ResData.of(token, "에러발생"));
+            return ResponseEntity.ok().body(ResData.of(token, "성공"));
 
         } catch (Exception e) { //TODO : 익셉션 쪼개서 처리해야함.
             log.error(e.getMessage(), e);
