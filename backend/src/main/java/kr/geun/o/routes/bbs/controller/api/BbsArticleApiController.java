@@ -10,7 +10,6 @@ import kr.geun.o.core.utils.CmnUtils;
 import kr.geun.o.core.utils.SecUtils;
 import kr.geun.o.routes.bbs.dto.BbsArticleDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 글 관련 Api
@@ -84,12 +84,12 @@ public class BbsArticleApiController extends BaseController {
             throw new BaseException(CmnUtils.getErrMsg(result, '\n'), HttpStatus.BAD_REQUEST);
         }
 
-        BbsArticleEntity dbInfo = bbsArticleApiService.get(param.getArticleId());
-        if (dbInfo == null) {
+        Optional<BbsArticleEntity> optDbInfo = bbsArticleApiService.get(param.getArticleId());
+        if (optDbInfo.isPresent() == false) {
             throw new BaseException("데이터를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok().body(ResData.of(dbInfo, "성공"));
+        return ResponseEntity.ok().body(ResData.of(optDbInfo.get(), "성공"));
     }
 
     /**

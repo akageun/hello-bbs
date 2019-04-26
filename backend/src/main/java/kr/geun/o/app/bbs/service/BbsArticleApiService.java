@@ -3,7 +3,6 @@ package kr.geun.o.app.bbs.service;
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.repository.BbsArticleRepository;
 import kr.geun.o.core.exception.BaseException;
-import kr.geun.o.core.utils.SecUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * 게시글 관련 API 서비스
@@ -42,8 +42,8 @@ public class BbsArticleApiService {
      * @param articleId
      * @return
      */
-    public BbsArticleEntity get(Long articleId) {
-        return bbsArticleRepository.findByArticleId(articleId);
+    public Optional<BbsArticleEntity> get(Long articleId) {
+        return Optional.of(bbsArticleRepository.findByArticleId(articleId));
     }
 
     public void preAddArticle(BbsArticleEntity dbParam) throws Exception {
@@ -59,42 +59,13 @@ public class BbsArticleApiService {
         bbsArticleRepository.add(dbParam);
     }
 
-    /**
-     * 글쓰기
-     *
-     * @param title
-     * @param content
-     * @param statusCd
-     * @param categoryId
-     */
-    @Deprecated
-    @Transactional
-    public void addArticle(String title, String content, String statusCd, Long categoryId) {
-
-        String userId = SecUtils.getUserName();
-
-        //@formatter:off
-		BbsArticleEntity dbParam = BbsArticleEntity
-			.builder()
-				.title(title)
-				.content(content)
-				.statusCd(statusCd)
-				.categoryId(categoryId)
-				.createdUserId(userId)
-				.updatedUserId(userId)
-			.build();
-		//@formatter:on
-
-        bbsArticleRepository.add(dbParam);
-    }
-
     public void preModifyArticle(BbsArticleEntity dbParam) {
-        BbsArticleEntity dbInfo = this.get(dbParam.getArticleId());
-        if (dbInfo == null) {
+        Optional<BbsArticleEntity> optDbInfo = this.get(dbParam.getArticleId());
+        if (optDbInfo.isPresent() == false) {
             throw new BaseException("데이터를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
         }
 
-
+        BbsArticleEntity dbInfo = optDbInfo.get();
         if (StringUtils.equals(dbInfo.getCreatedUserId(), dbParam.getUpdatedUserId()) == false) {
             throw new BaseException("작성자만 글을 수정할 수 있습니다.", HttpStatus.BAD_REQUEST);
         }
@@ -105,35 +76,4 @@ public class BbsArticleApiService {
     public void modifyArticle(BbsArticleEntity dbParam) {
         bbsArticleRepository.update(dbParam);
     }
-
-    /**
-     * 글 수정
-     *
-     * @param articleId
-     * @param title
-     * @param content
-     * @param statusCd
-     * @param categoryId
-     */
-    @Deprecated
-    @Transactional
-    public void modifyArticle(Long articleId, String title, String content, String statusCd, Long categoryId) {
-        String userId = SecUtils.getUserName();
-
-        //@formatter:off
-		BbsArticleEntity dbParam = BbsArticleEntity
-			.builder()
-				.articleId(articleId)
-				.title(title)
-				.content(content)
-				.statusCd(statusCd)
-				.categoryId(categoryId)
-				.createdUserId(userId)
-				.updatedUserId(userId)
-			.build();
-		//@formatter:on
-
-        bbsArticleRepository.update(dbParam);
-    }
-
 }

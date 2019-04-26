@@ -11,4 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BbsArticleRepository extends JpaRepository<BbsArticleEntity, Long>, BbsArticleRepoDsl {
 
 	BbsArticleEntity findByArticleId(Long articleId);
+
 }
