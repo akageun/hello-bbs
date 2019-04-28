@@ -2,6 +2,7 @@ package kr.geun.o.app.bbs.service;
 
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.repository.BbsArticleRepository;
+import kr.geun.o.core.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -87,6 +88,44 @@ public class BbsArticleApiServiceTest {
         THEN:
         {
             Assert.assertEquals(page.getTotalElements(), 0);
+        }
+    }
+
+    @Test(expected = BaseException.class)
+    public void preModifyArticle1() {
+        final Long articleId = 1L;
+
+        GIVEN:
+        {
+            given(bbsArticleRepository.findByArticleId(articleId)).willReturn(null);
+        }
+
+        WHEN:
+        {
+            bbsArticleApiService.preModifyArticle(new BbsArticleEntity());
+        }
+    }
+
+    @Test(expected = BaseException.class)
+    public void preModifyArticle2() {
+        final Long articleId = 1L;
+        BbsArticleEntity param = BbsArticleEntity.builder()
+                .articleId(articleId)
+                .updatedUserId("test")
+                .build();
+
+        GIVEN:
+        {
+            given(bbsArticleRepository.findByArticleId(articleId)).willReturn(
+                    BbsArticleEntity.builder()
+                            .updatedUserId("test2")
+                            .build()
+            );
+        }
+
+        WHEN:
+        {
+            bbsArticleApiService.preModifyArticle(param);
         }
     }
 }

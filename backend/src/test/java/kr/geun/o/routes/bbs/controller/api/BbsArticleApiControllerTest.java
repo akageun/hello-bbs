@@ -3,6 +3,7 @@ package kr.geun.o.routes.bbs.controller.api;
 import kr.geun.o.app.bbs.model.BbsArticleEntity;
 import kr.geun.o.app.bbs.service.BbsArticleApiService;
 import kr.geun.o.core.constants.CmnConst;
+import kr.geun.o.core.security.service.SimpleUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = {BbsArticleApiController.class})
+@WebMvcTest(value = {
+        BbsArticleApiController.class,
+})
 public class BbsArticleApiControllerTest {
 
     @Autowired
@@ -36,6 +39,9 @@ public class BbsArticleApiControllerTest {
 
     @MockBean
     private BbsArticleApiService bbsArticleApiService;
+
+    @MockBean
+    private SimpleUserDetailsService simpleUserDetailsService;
 
     @WithMockUser(value = "spring")
     @Test

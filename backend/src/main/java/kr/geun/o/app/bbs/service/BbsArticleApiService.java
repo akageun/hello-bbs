@@ -43,7 +43,7 @@ public class BbsArticleApiService {
      * @return
      */
     public Optional<BbsArticleEntity> get(Long articleId) {
-        return Optional.of(bbsArticleRepository.findByArticleId(articleId));
+        return Optional.ofNullable(bbsArticleRepository.findByArticleId(articleId));
     }
 
     public void preAddArticle(BbsArticleEntity dbParam) throws Exception {
@@ -59,6 +59,11 @@ public class BbsArticleApiService {
         bbsArticleRepository.add(dbParam);
     }
 
+    /**
+     * 글 수정 전처리
+     *
+     * @param dbParam
+     */
     public void preModifyArticle(BbsArticleEntity dbParam) {
         Optional<BbsArticleEntity> optDbInfo = this.get(dbParam.getArticleId());
         if (optDbInfo.isPresent() == false) {

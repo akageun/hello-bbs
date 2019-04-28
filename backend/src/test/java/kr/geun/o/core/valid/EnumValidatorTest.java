@@ -46,6 +46,7 @@ public class EnumValidatorTest {
 				.title("TITLE")
 				.content("#TEST")
 				.statusCd(ArticleStatusCd.NORMAL.name())
+				.categoryId(1L)
 			.build();
 		//@formatter:on
 
@@ -63,6 +64,7 @@ public class EnumValidatorTest {
 				.title("TITLE")
 				.content("#TEST")
 				.statusCd("ERROR_STATUS")
+				.categoryId(1L)
 			.build();
 		//@formatter:on
 
