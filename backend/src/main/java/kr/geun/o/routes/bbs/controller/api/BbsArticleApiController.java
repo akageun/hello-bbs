@@ -121,8 +121,8 @@ public class BbsArticleApiController extends BaseController {
                 .build();
 
         try {
+            
             bbsArticleApiService.preAddArticle(dbParam); //전처리
-
             bbsArticleApiService.addArticle(dbParam);
 
         } catch (Exception e) {

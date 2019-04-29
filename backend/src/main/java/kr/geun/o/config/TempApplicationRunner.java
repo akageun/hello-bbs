@@ -17,67 +17,74 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
- *
- *
  * @author akageun
  */
 @Slf4j
 @Component
 public class TempApplicationRunner implements CommandLineRunner {
-	@Autowired
-	private UserAuthRepository userAuthRepository;
+    @Autowired
+    private UserAuthRepository userAuthRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private BbsArticleRepository bbsArticleRepository;
+    @Autowired
+    private BbsArticleRepository bbsArticleRepository;
 
-	@Autowired
-	private BbsCategoryRepository bbsCategoryRepository;
+    @Autowired
+    private BbsCategoryRepository bbsCategoryRepository;
 
-	@Override
-	public void run(String... args) throws Exception {
-		String userId = "test";
+    @Override
+    public void run(String... args) throws Exception {
+        String userId = "test";
 
-		UserEntity userEntityParam = UserEntity.builder().userId(userId).passWd(passwordEncoder.encode("test")).build();
-		userRepository.save(userEntityParam);
+        UserEntity userEntityParam = UserEntity.builder().userId(userId).passWd(passwordEncoder.encode("test")).build();
+        userRepository.save(userEntityParam);
 
-		UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd(AuthorityCd.USER.roleCd()).build();
-		userAuthRepository.save(userAuthEntityParam);
+        UserAuthEntity userAuthEntityParam = UserAuthEntity.builder().userId(userId).authorityCd(AuthorityCd.USER.roleCd()).build();
+        userAuthRepository.save(userAuthEntityParam);
 
-		UserEntity userEntityParam2 = UserEntity.builder().userId(userId + "1").passWd(passwordEncoder.encode("test")).build();
-		userRepository.save(userEntityParam2);
+        UserEntity userEntityParam2 = UserEntity.builder().userId(userId + "1").passWd(passwordEncoder.encode("test")).build();
+        userRepository.save(userEntityParam2);
 
-		UserAuthEntity userAuthEntityParam2 = UserAuthEntity.builder().userId(userId + "1").authorityCd(AuthorityCd.ADMIN.roleCd()).build();
-		userAuthRepository.save(userAuthEntityParam2);
+        UserAuthEntity userAuthEntityParam2 = UserAuthEntity.builder().userId(userId + "1").authorityCd(AuthorityCd.ADMIN.roleCd()).build();
+        userAuthRepository.save(userAuthEntityParam2);
 
-		UserAuthEntity userAuthEntityParam3 = UserAuthEntity.builder().userId(userId + "1").authorityCd(AuthorityCd.USER.roleCd()).build();
-		userAuthRepository.save(userAuthEntityParam3);
+        UserAuthEntity userAuthEntityParam3 = UserAuthEntity.builder().userId(userId + "1").authorityCd(AuthorityCd.USER.roleCd()).build();
+        userAuthRepository.save(userAuthEntityParam3);
 
-		List<BbsCategoryEntity> bbsCategoryEntities = new ArrayList<>();
+        List<BbsCategoryEntity> bbsCategoryEntities = IntStream.range(0, 5)
+                .mapToObj(info ->
+                        BbsCategoryEntity.builder()
+                                .name("테스트 " + info)
+                                .type(ArticleStatusCd.NORMAL.name())
+                                .createdUserId(userId)
+                                .updatedUserId(userId)
+                                .build()
+                ).collect(Collectors.toList());
 
-		for (int i = 0; i < 5; i++) {
-			bbsCategoryEntities.add(
-				BbsCategoryEntity.builder().name("테스트 " + i).type(ArticleStatusCd.NORMAL.name()).createdUserId(userId).updatedUserId(userId).build());
-		}
+        List<BbsCategoryEntity> bbsCategoryEntities1 = bbsCategoryRepository.saveAll(bbsCategoryEntities);
 
-		List<BbsCategoryEntity> bbsCategoryEntities1 = bbsCategoryRepository.saveAll(bbsCategoryEntities);
+        List<BbsArticleEntity> article = IntStream.range(0, 30)
+                .mapToObj(info ->
+                        BbsArticleEntity.builder()
+                                .title("테스트 " + info)
+                                .content("## 테스트 글 입니다.")
+                                .statusCd("NORMAL")
+                                .createdUserId(userId)
+                                .categoryId(bbsCategoryEntities1.get(RandomUtils.nextInt(0, 4)).getCategoryId())
+                                .updatedUserId(userId).build()
+                ).collect(Collectors.toList());
 
-		List<BbsArticleEntity> article = new ArrayList<>();
-		for (int i = 0; i < 30; i++) {
-			article.add(BbsArticleEntity.builder().title("테스트 " + i).content("## 테스트 글 입니다.").statusCd("NORMAL").createdUserId(userId).categoryId(
-				bbsCategoryEntities1.get(RandomUtils.nextInt(0, 4)).getCategoryId()).updatedUserId(userId).build());
-		}
+        bbsArticleRepository.saveAll(article);
 
-		bbsArticleRepository.saveAll(article);
-
-	}
+    }
 }

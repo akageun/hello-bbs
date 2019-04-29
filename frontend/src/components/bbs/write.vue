@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row mb-3">
       <div class="col-lg-9 col-md-12">
-        <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요."/>
+        <input type="text" class="form-control" placeholder="제목을 입력해주세요." v-model="title"/>
       </div>
       <div class="col-lg-3 col-md-12">
         <select id="category_id" name="categoryId" class="form-control select2-multiple tmpSelect2">
@@ -19,7 +19,6 @@
         <button type="button" class="btn btn-block btn-outline-success" @click="saveData">
           SAVE
         </button>
-        <br>
       </div>
     </div>
   </div>
@@ -35,6 +34,7 @@
   export default {
     data() {
       return {
+        title: '',
         simpleMde: null
       }
     },
@@ -54,7 +54,7 @@
           url: '/api/category/v1/search',
           dataType: "json",
           headers: {
-            "Authorization": "Bearer " + localStorage.getItem('tk'),
+            "Authorization": `Bearer ${localStorage.getItem('tk')}`,
             "Content-Type": "application/json",
           },
           data: function (params) {
@@ -77,7 +77,7 @@
     },
     methods: {
       saveData() {
-        const title = document.getElementById('title').value;
+        const title = this.title;
         const content = this.simpleMde.value();
         const categoryId = document.getElementById('category_id').value;
         const statusCd = "NORMAL";
@@ -89,7 +89,7 @@
             }
           })
           .catch(({message}) => {
-            console.log("err : ", message);
+            console.error("err : ", message);
           });
       }
     }

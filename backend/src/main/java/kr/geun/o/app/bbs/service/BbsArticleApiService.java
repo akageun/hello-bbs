@@ -43,7 +43,7 @@ public class BbsArticleApiService {
      * @return
      */
     public Optional<BbsArticleEntity> get(Long articleId) {
-        return Optional.ofNullable(bbsArticleRepository.findByArticleId(articleId));
+        return bbsArticleRepository.findById(articleId);
     }
 
     public void preAddArticle(BbsArticleEntity dbParam) throws Exception {

@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row mb-3">
       <div class="col-lg-9 col-md-12">
-        <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요."/>
+        <input type="text" class="form-control" placeholder="제목을 입력해주세요." v-model="title"/>
       </div>
       <div class="col-lg-3 col-md-12">
         <select id="category_id" name="categoryId" class="form-control select2-multiple tmpSelect2">
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import router from 'SrcRoot/router'
-  import $ from 'jquery'
+  import router from 'SrcRoot/router';
+  import $ from 'jquery';
 
   import SimpleMDE from 'simplemde';
   import 'simplemde/dist/simplemde.min.css'
@@ -35,6 +35,7 @@
     name: "bbs_modify",
     data() {
       return {
+        title: '',
         simpleMde: null,
         articleId: null
       }
@@ -50,27 +51,26 @@
 
       this.$store.dispatch('GET_BBS', {articleId})
         .then((data) => {
-          document.getElementById('title').value = data.data.data.title;
+          this.title = data.data.data.title;
 
           this.simpleMde.value(data.data.data.content);
           let html = "<option value='" + data.data.data.categoryId + "' selected='selected'>";
           html += data.data.data.bbsCategoryEntity.name;
           html += "</option>";
 
-
           $("#category_id").append(html);
 
           $(' .tmpSelect2').select2({
             placeholder: "카테고리를 선택해주세요.",
-            theme: "bootstrap",
             minimumInputLength: 2,
+            theme: "bootstrap",
             delay: 250,
             ajax: {
               type: 'GET',
               url: '/api/category/v1/search',
               dataType: "json",
               headers: {
-                "Authorization": "Bearer " + localStorage.getItem('tk'),
+                "Authorization": `Bearer ${localStorage.getItem('tk')}`,
                 "Content-Type": "application/json",
               },
               data: function (params) {
@@ -92,8 +92,10 @@
           });
         })
         .catch(({message}) => {
-          console.log("err : ", message);
+          console.error("err : ", message);
         });
+
+
     },
     methods: {
       saveData() {
@@ -106,13 +108,12 @@
 
         this.$store.dispatch('MODIFY_BBS_ARTICLE', {articleId, title, content, statusCd, categoryId})
           .then((data) => {
-            console.log(data);
             if (data.status === 200) {
               router.push('/')
             }
           })
           .catch(({message}) => {
-            console.log("err : ", message);
+            console.error("err : ", message);
           });
       }
     }
