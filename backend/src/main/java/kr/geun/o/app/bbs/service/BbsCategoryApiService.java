@@ -2,7 +2,6 @@ package kr.geun.o.app.bbs.service;
 
 import kr.geun.o.app.bbs.model.BbsCategoryEntity;
 import kr.geun.o.app.bbs.repository.BbsCategoryRepository;
-import kr.geun.o.core.utils.SecUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 카테고리 관련 API 서비스
@@ -40,56 +40,29 @@ public class BbsCategoryApiService {
      * @param categoryId
      * @return
      */
-    public BbsCategoryEntity get(Long categoryId) {
-        return bbsCategoryRepository.getOne(categoryId);
+    public Optional<BbsCategoryEntity> get(Long categoryId) {
+        return bbsCategoryRepository.findById(categoryId);
     }
 
     /**
      * 추가
      *
-     * @param type
-     * @param name
+     * @param dbParam
      * @return
      */
     @Transactional
-    public void add(String type, String name) {
-        String userId = SecUtils.getUserName();
-
-        //@formatter:off
-		BbsCategoryEntity dbParam = BbsCategoryEntity
-			.builder()
-				.type(type)
-				.name(name)
-				.createdUserId(userId)
-				.updatedUserId(userId)
-			.build();
-		//@formatter:on
-
+    public void add(BbsCategoryEntity dbParam) {
         bbsCategoryRepository.add(dbParam);
     }
 
     /**
      * 수정
      *
-     * @param categoryId
-     * @param type
-     * @param name
+     * @param dbParam
      * @return
      */
     @Transactional
-    public void modify(Long categoryId, String type, String name) {
-        String userId = SecUtils.getUserName();
-
-        //@formatter:off
-		BbsCategoryEntity dbParam = BbsCategoryEntity
-			.builder()
-				.categoryId(categoryId)
-				.type(type)
-				.name(name)
-				.updatedUserId(userId)
-			.build();
-		//@formatter:on
-
+    public void modify(BbsCategoryEntity dbParam) {
         bbsCategoryRepository.update(dbParam);
     }
 
